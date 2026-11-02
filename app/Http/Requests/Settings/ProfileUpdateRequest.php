@@ -5,10 +5,21 @@ namespace App\Http\Requests\Settings;
 use App\Concerns\ProfileValidationRules;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Str;
 
 class ProfileUpdateRequest extends FormRequest
 {
     use ProfileValidationRules;
+
+    /**
+     * Normalize the username before it is validated.
+     */
+    protected function prepareForValidation(): void
+    {
+        if ($this->has('username')) {
+            $this->merge(['username' => Str::lower(trim((string) $this->input('username')))]);
+        }
+    }
 
     /**
      * Get the validation rules that apply to the request.

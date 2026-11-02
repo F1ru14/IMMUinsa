@@ -19,7 +19,7 @@ test('profile information can be updated', function () {
         ->actingAs($user)
         ->patch(route('profile.update'), [
             'name' => 'Test User',
-            'email' => 'test@example.com',
+            'username' => 'testuser',
         ]);
 
     $response
@@ -29,25 +29,36 @@ test('profile information can be updated', function () {
     $user->refresh();
 
     expect($user->name)->toBe('Test User');
-    expect($user->email)->toBe('test@example.com');
-    expect($user->email_verified_at)->toBeNull();
+    expect($user->username)->toBe('testuser');
 });
 
-test('email verification status is unchanged when the email address is unchanged', function () {
+test('username is normalized to lowercase', function () {
     $user = User::factory()->create();
 
     $response = $this
         ->actingAs($user)
         ->patch(route('profile.update'), [
             'name' => 'Test User',
-            'email' => $user->email,
+            'username' => 'TestUser',
         ]);
 
-    $response
-        ->assertSessionHasNoErrors()
-        ->assertRedirect(route('profile.edit'));
+    $response->assertSessionHasNoErrors();
 
-    expect($user->refresh()->email_verified_at)->not->toBeNull();
+    expect($user->refresh()->username)->toBe('testuser');
+});
+
+test('username must be unique', function () {
+    $other = User::factory()->create(['username' => 'taken']);
+    $user = User::factory()->create();
+
+    $response = $this
+        ->actingAs($user)
+        ->patch(route('profile.update'), [
+            'name' => 'Test User',
+            'username' => 'TAKEN',
+        ]);
+
+    $response->assertSessionHasErrors('username');
 });
 
 test('user can delete their account', function () {

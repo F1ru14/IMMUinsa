@@ -45,14 +45,18 @@ export default function PasskeyVerify({
                 <Button
                     type="button"
                     variant="outline"
-                    className="w-full"
+                    className="h-10 w-full gap-2 border-slate-300 bg-white text-slate-700 shadow-none hover:border-brand/40 hover:bg-brand-soft hover:text-brand focus-visible:border-brand focus-visible:ring-brand/30"
                     onClick={verify}
                     disabled={isLoading}
                 >
-                    {isLoading ? <Spinner /> : <KeyRound className="h-4 w-4" />}
+                    {isLoading ? (
+                        <Spinner />
+                    ) : (
+                        <KeyRound className="size-4 text-brand" />
+                    )}
                     {isLoading
-                        ? (loadingLabel ?? 'Authenticating...')
-                        : (label ?? 'Sign in with a passkey')}
+                        ? (loadingLabel ?? 'Memverifikasi passkey…')
+                        : (label ?? 'Masuk dengan passkey')}
                 </Button>
                 {error && (
                     <InputError message={error} className="text-center" />
@@ -61,11 +65,11 @@ export default function PasskeyVerify({
 
             <div className="relative my-6">
                 <div className="absolute inset-0 flex items-center">
-                    <Separator className="w-full" />
+                    <Separator className="bg-slate-200" />
                 </div>
-                <div className="relative flex justify-center text-xs uppercase">
-                    <span className="bg-background px-2 text-muted-foreground">
-                        {separator ?? 'Or continue with email'}
+                <div className="relative flex justify-center">
+                    <span className="bg-white px-3 text-[11px] font-semibold uppercase tracking-widest text-slate-400">
+                        {separator ?? 'atau lanjutkan dengan email'}
                     </span>
                 </div>
             </div>
