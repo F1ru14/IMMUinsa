@@ -2,7 +2,6 @@
 
 namespace App\Http\Middleware;
 
-use App\Enums\Role;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,7 +21,7 @@ class RoleMiddleware
             return redirect()->route('login');
         }
 
-        $userRole = $user->role instanceof Role ? $user->role->value : (string) $user->role;
+        $userRole = $user->role->value;
 
         if (! in_array($userRole, $roles, true)) {
             abort(Response::HTTP_FORBIDDEN, 'Unauthorized access to this section.');

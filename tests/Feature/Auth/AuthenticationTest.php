@@ -22,6 +22,18 @@ test('users can authenticate using the login screen', function () {
     $response->assertRedirect(route('dashboard', absolute: false));
 });
 
+test('inertia login requests receive a full page redirect to the dashboard', function () {
+    $user = User::factory()->create();
+
+    $response = $this->post(route('login.store'), [
+        'username' => $user->username,
+        'password' => 'password',
+    ], ['X-Inertia' => 'true']);
+
+    $response->assertStatus(409);
+    $response->assertHeader('X-Inertia-Location', route('dashboard'));
+});
+
 test('users with two factor enabled are redirected to two factor challenge', function () {
     $this->skipUnlessFortifyHas(Features::twoFactorAuthentication());
 

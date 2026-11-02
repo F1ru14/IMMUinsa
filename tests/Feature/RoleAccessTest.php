@@ -2,6 +2,7 @@
 
 use App\Enums\FocusArea;
 use App\Models\User;
+use Inertia\Testing\AssertableInertia as Assert;
 
 test('admin can access admin dashboard', function () {
     $admin = User::factory()->admin()->create();
@@ -26,8 +27,10 @@ test('inactive user sees pending approval page instead of dashboard', function (
     $response = $this->actingAs($pendingKader)->get(route('dashboard'));
 
     $response->assertOk();
-    $response->assertSee('Menunggu Persetujuan', false);
-    $response->assertSee($pendingKader->role->label(), false);
+    $response->assertInertia(fn (Assert $page) => $page
+        ->component('auth/pending-approval')
+        ->where('roleLabel', $pendingKader->role->label())
+    );
 });
 
 test('inactive user cannot access biodata onboarding before approval', function () {

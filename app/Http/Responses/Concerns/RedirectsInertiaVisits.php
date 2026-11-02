@@ -2,6 +2,7 @@
 
 namespace App\Http\Responses\Concerns;
 
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Laravel\Fortify\Fortify;
 use Symfony\Component\HttpFoundation\Response;
@@ -9,18 +10,13 @@ use Symfony\Component\HttpFoundation\Response;
 trait RedirectsInertiaVisits
 {
     /**
-     * The Fortify redirect name used to resolve the default destination.
-     */
-    protected string $redirectName;
-
-    /**
      * Create an HTTP response that represents the object.
      *
      * Halaman tujuan (dashboard, biodata, dsb.) masih dirender dengan Blade,
      * sehingga kunjungan Inertia harus diubah menjadi full page load. Tanpa
      * ini Inertia akan menampilkan respons HTML tersebut di dalam dialog error.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Request  $request
      */
     public function toResponse($request): Response
     {

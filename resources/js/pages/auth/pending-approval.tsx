@@ -38,7 +38,7 @@ export default function PendingApproval({ roleLabel }: Props) {
                         Terima kasih telah mendaftar,{' '}
                         <strong>{auth.user.name}</strong>. Akun Anda dengan
                         peran{' '}
-                        <span className="font-semibold uppercase text-brand">
+                        <span className="font-semibold text-brand uppercase">
                             {roleLabel}
                         </span>{' '}
                         sedang dalam proses verifikasi dan aktivasi oleh

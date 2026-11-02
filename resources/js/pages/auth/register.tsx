@@ -58,7 +58,9 @@ export default function Register({ passwordRules }: Props) {
                     <>
                         <div className="grid gap-6">
                             <div className="grid gap-2.5">
-                                <Label className={labelClass}>Daftar sebagai</Label>
+                                <Label className={labelClass}>
+                                    Daftar sebagai
+                                </Label>
                                 <input
                                     type="hidden"
                                     name="role"
@@ -155,7 +157,10 @@ export default function Register({ passwordRules }: Props) {
                             </div>
 
                             <div className="grid gap-2">
-                                <Label htmlFor="password" className={labelClass}>
+                                <Label
+                                    htmlFor="password"
+                                    className={labelClass}
+                                >
                                     Kata Sandi
                                 </Label>
                                 <PasswordInput

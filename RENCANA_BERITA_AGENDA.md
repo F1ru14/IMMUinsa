@@ -7,37 +7,37 @@
 
 ## 1. Ringkasan Keputusan
 
-| Aspek | Keputusan |
-| :--- | :--- |
-| Pendekatan | **Opsi B (RSS otomatis) + fallback Opsi A (data statis)** |
-| Sumber berita | `https://www.immuinsasby.com/` — situs resmi IMM UIN Sunan Ampel Surabaya |
-| Endpoint feed | `https://www.immuinsasby.com/feeds/posts/default?alt=rss` (alternatif: `/rss.xml`) |
-| Perubahan database | Tidak ada (tanpa migration/model) |
-| Agenda | Tetap statis sampai ada sumber data agenda resmi |
+| Aspek              | Keputusan                                                                          |
+| :----------------- | :--------------------------------------------------------------------------------- |
+| Pendekatan         | **Opsi B (RSS otomatis) + fallback Opsi A (data statis)**                          |
+| Sumber berita      | `https://www.immuinsasby.com/` — situs resmi IMM UIN Sunan Ampel Surabaya          |
+| Endpoint feed      | `https://www.immuinsasby.com/feeds/posts/default?alt=rss` (alternatif: `/rss.xml`) |
+| Perubahan database | Tidak ada (tanpa migration/model)                                                  |
+| Agenda             | Tetap statis sampai ada sumber data agenda resmi                                   |
 
 ---
 
 ## 2. Hasil Verifikasi Sumber (per 1 Nov 2026)
 
-| Aspek | Hasil |
-| :--- | :--- |
-| Platform | Blogger / Blogspot |
-| `/feed/` | ❌ 404 (bukan WordPress) |
-| `/feeds/posts/default?alt=rss` | ✅ RSS 2.0 valid |
-| `/rss.xml` | ✅ RSS 2.0 valid (isi setara) |
-| Item per request | 25 item (arsip total 476) |
-| Ukuran payload | ±250 KB |
+| Aspek                          | Hasil                         |
+| :----------------------------- | :---------------------------- |
+| Platform                       | Blogger / Blogspot            |
+| `/feed/`                       | ❌ 404 (bukan WordPress)      |
+| `/feeds/posts/default?alt=rss` | ✅ RSS 2.0 valid              |
+| `/rss.xml`                     | ✅ RSS 2.0 valid (isi setara) |
+| Item per request               | 25 item (arsip total 476)     |
+| Ukuran payload                 | ±250 KB                       |
 
 ### Field yang tersedia per item
 
-| Field feed | Dipakai untuk | Catatan |
-| :--- | :--- | :--- |
-| `title` | Judul kartu | Bersih, tanpa HTML |
-| `link` | URL tujuan kartu | Sudah URL absolut |
-| `pubDate` | Tanggal kartu | RFC 822 (UTC) → konversi ke `d M Y` WIB |
-| `category[]` | Badge kategori | Bisa lebih dari satu (mis. `Agama`, `Artikel`, `Ibn Rusyd`) |
-| `media:thumbnail` | Gambar kartu (opsional) | Ukuran `s72-c` → ganti ke `s400`/`w400` |
-| `description` | Excerpt | HTML penuh artikel (±1.600–8.200 karakter), wajib di-strip |
+| Field feed        | Dipakai untuk           | Catatan                                                     |
+| :---------------- | :---------------------- | :---------------------------------------------------------- |
+| `title`           | Judul kartu             | Bersih, tanpa HTML                                          |
+| `link`            | URL tujuan kartu        | Sudah URL absolut                                           |
+| `pubDate`         | Tanggal kartu           | RFC 822 (UTC) → konversi ke `d M Y` WIB                     |
+| `category[]`      | Badge kategori          | Bisa lebih dari satu (mis. `Agama`, `Artikel`, `Ibn Rusyd`) |
+| `media:thumbnail` | Gambar kartu (opsional) | Ukuran `s72-c` → ganti ke `s400`/`w400`                     |
+| `description`     | Excerpt                 | HTML penuh artikel (±1.600–8.200 karakter), wajib di-strip  |
 
 ### Label kategori asli situs
 
@@ -115,14 +115,14 @@ Route::get('/', function (PersyarikatanNews $news): Response {
 
 ## 4. Risiko & Mitigasi
 
-| Risiko | Mitigasi |
-| :--- | :--- |
-| Feed mati / format berubah | Parser toleran + cache cadangan 24 jam + fallback statis |
-| Latensi cold cache (2–5 detik) | `timeout(4)` + cache 30 menit |
-| Excerpt berupa HTML panjang | `strip_tags` + `html_entity_decode` + limit 140 karakter |
-| Gambar thumbnail pecah | Naikkan parameter ukuran ke `s400` |
-| Isu hak cipta | Hanya judul + kutipan pendek + tautan + atribusi sumber |
-| Konten pusat kurang relevan komisariat | Filter kategori + opsi pin 1 berita internal |
+| Risiko                                 | Mitigasi                                                 |
+| :------------------------------------- | :------------------------------------------------------- |
+| Feed mati / format berubah             | Parser toleran + cache cadangan 24 jam + fallback statis |
+| Latensi cold cache (2–5 detik)         | `timeout(4)` + cache 30 menit                            |
+| Excerpt berupa HTML panjang            | `strip_tags` + `html_entity_decode` + limit 140 karakter |
+| Gambar thumbnail pecah                 | Naikkan parameter ukuran ke `s400`                       |
+| Isu hak cipta                          | Hanya judul + kutipan pendek + tautan + atribusi sumber  |
+| Konten pusat kurang relevan komisariat | Filter kategori + opsi pin 1 berita internal             |
 
 ---
 

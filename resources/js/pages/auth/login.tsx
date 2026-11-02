@@ -98,7 +98,7 @@ export default function Login({ status, canResetPassword }: Props) {
                                     id="remember"
                                     name="remember"
                                     tabIndex={3}
-                                    className="border-slate-300 data-[state=checked]:border-brand data-[state=checked]:bg-brand focus-visible:ring-brand/30"
+                                    className="border-slate-300 focus-visible:ring-brand/30 data-[state=checked]:border-brand data-[state=checked]:bg-brand"
                                 />
                                 <Label
                                     htmlFor="remember"

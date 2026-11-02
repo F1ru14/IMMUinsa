@@ -32,7 +32,9 @@ export default function AuthSimpleLayout({
                         <BrandLogo className="size-full" />
                     </div>
                     <div className="leading-tight">
-                        <p className="text-sm font-bold tracking-wide">{name}</p>
+                        <p className="text-sm font-bold tracking-wide">
+                            {name}
+                        </p>
                         <p className="text-[11px] text-white/60">
                             Sistem Perkaderan IMM UINSA
                         </p>
@@ -40,7 +42,7 @@ export default function AuthSimpleLayout({
                 </Link>
 
                 <div className="relative z-10 max-w-md">
-                    <span className="inline-flex items-center rounded-sm border border-amber-300/30 bg-amber-300/10 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.2em] text-amber-300">
+                    <span className="inline-flex items-center rounded-sm border border-amber-300/30 bg-amber-300/10 px-3 py-1 text-[11px] font-bold tracking-[0.2em] text-amber-300 uppercase">
                         Komisariat UIN Sunan Ampel
                     </span>
                     <h2 className="mt-5 text-3xl font-extrabold tracking-tight">
@@ -80,7 +82,9 @@ export default function AuthSimpleLayout({
                         <BrandLogo className="size-full" />
                     </div>
                     <div className="leading-tight text-slate-900">
-                        <p className="text-sm font-bold tracking-wide">{name}</p>
+                        <p className="text-sm font-bold tracking-wide">
+                            {name}
+                        </p>
                         <p className="text-[11px] text-slate-500">
                             Sistem Perkaderan IMM UINSA
                         </p>
@@ -91,7 +95,7 @@ export default function AuthSimpleLayout({
                     <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-[0_1px_3px_rgba(15,23,42,0.06)] sm:p-8">
                         <div className="mb-7">
                             <div className="mb-4 h-0.5 w-8 bg-gold" />
-                            <h1 className="text-[22px] font-extrabold leading-tight tracking-tight text-slate-900">
+                            <h1 className="text-[22px] leading-tight font-extrabold tracking-tight text-slate-900">
                                 {title}
                             </h1>
                             {description && (

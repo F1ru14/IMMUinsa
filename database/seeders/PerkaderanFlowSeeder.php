@@ -30,7 +30,7 @@ class PerkaderanFlowSeeder extends Seeder
             ]
         );
         // Pastikan belum ada biodata agar langsung masuk alur pengisian biodata
-        $kader->biodata()?->delete();
+        $kader->biodata()->delete();
         $kader->update([
             'focus_area' => null,
             'fasilitator_id' => null,

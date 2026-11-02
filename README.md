@@ -1,6 +1,6 @@
 # IMM UINSA - Sistem Manajemen Perkaderan
 
-Sistem informasi perkaderan Ikatan Mahasiswa Muhammadiyah (IMM) berbasis Laravel dengan sistem otentikasi multi-peran (*Role-Based Access Control*), alur persetujuan aktivasi akun, onboarding pengisian biodata wajib, dan dashboard terdedikasi untuk masing-masing peran.
+Sistem informasi perkaderan Ikatan Mahasiswa Muhammadiyah (IMM) berbasis Laravel dengan sistem otentikasi multi-peran (_Role-Based Access Control_), alur persetujuan aktivasi akun, onboarding pengisian biodata wajib, dan dashboard terdedikasi untuk masing-masing peran.
 
 > 📖 **Dokumentasi Terkait:** Untuk memahami latar belakang, 4 pilar pergerakan, aturan validasi, dan diagram alur bisnis lengkap, silakan baca [**Panduan Proses Bisnis (BUSINESS.md)**](BUSINESS.md).
 
@@ -9,30 +9,31 @@ Sistem informasi perkaderan Ikatan Mahasiswa Muhammadiyah (IMM) berbasis Laravel
 ## 🌟 Fitur Utama
 
 - **4 Peran Pengguna (Role-Based Access Control):**
-  - **Admin:** Pengelola sistem utama (manajemen semua pengguna, aktivasi akun, penetapan peran).
-  - **Mentor:** Supervisi proses perkaderan, pembinaan fasilitator, dan evaluasi capaian.
-  - **Fasilitator:** Pendampingan kelompok kader binaan, pemeriksaan tugas, dan laporan berkala.
-  - **Kader:** Pengisian biodata, akses modul materi, dan pengumpulan tugas perkaderan.
+    - **Admin:** Pengelola sistem utama (manajemen semua pengguna, aktivasi akun, penetapan peran).
+    - **Mentor:** Supervisi proses perkaderan, pembinaan fasilitator, dan evaluasi capaian.
+    - **Fasilitator:** Pendampingan kelompok kader binaan, pemeriksaan tugas, dan laporan berkala.
+    - **Kader:** Pengisian biodata, akses modul materi, dan pengumpulan tugas perkaderan.
 - **Registrasi Publik Terbatas:**
-  - Registrasi publik hanya diizinkan untuk peran **Kader** dan **Fasilitator**.
-  - Akun yang baru mendaftar secara default berstatus `is_active = false` (menunggu persetujuan/aktivasi Admin).
-  - Akun Admin dan Mentor di-generate secara eksklusif via seeder / panel Admin.
+    - Registrasi publik hanya diizinkan untuk peran **Kader** dan **Fasilitator**.
+    - Akun yang baru mendaftar secara default berstatus `is_active = false` (menunggu persetujuan/aktivasi Admin).
+    - Akun Admin dan Mentor di-generate secara eksklusif via seeder / panel Admin.
 - **Onboarding Biodata Wajib (Middleware Enforced):**
-  - Fasilitator dan Kader yang login pertama kali otomatis diarahkan ke halaman `/biodata/complete`.
-  - Akses dashboard dikunci sampai biodata lengkap diserahkan.
+    - Fasilitator dan Kader yang login pertama kali otomatis diarahkan ke halaman `/biodata/complete`.
+    - Akses dashboard dikunci sampai biodata lengkap diserahkan.
 - **Dashboard Terdedikasi:**
-  - `/dashboard` otomatis mengarahkan pengguna ke dashboard spesifik berdasarkan perannya.
+    - `/dashboard` otomatis mengarahkan pengguna ke dashboard spesifik berdasarkan perannya.
 - **Modern Tech Stack:**
-  - Laravel (PHP 8.3+)
-  - Tailwind CSS v4 via Vite
-  - Blade & Inertia React Templates
-  - Pest Test Suite (100% test coverage untuk alur peran & biodata)
+    - Laravel (PHP 8.3+)
+    - Tailwind CSS v4 via Vite
+    - Blade & Inertia React Templates
+    - Pest Test Suite (100% test coverage untuk alur peran & biodata)
 
 ---
 
 ## 📋 Prasyarat Sistem
 
 Pastikan perangkat Anda telah terpasang:
+
 - **PHP** >= 8.3 atau 8.4 (dengan ekstensi: `pdo_sqlite` atau `pdo_mysql`, `mbstring`, `openssl`, `curl`)
 - **Composer** (v2+)
 - **Node.js** (v20+) & **npm** (atau **pnpm**)
@@ -67,7 +68,8 @@ npm install
 cp .env.example .env
 ```
 
-Buat kunci aplikasi (*App Key*):
+Buat kunci aplikasi (_App Key_):
+
 ```bash
 php artisan key:generate
 ```
@@ -81,6 +83,7 @@ touch database/database.sqlite
 ```
 
 Jalankan migrasi tabel dan seeding data default:
+
 ```bash
 php artisan migrate --seed
 ```
@@ -99,7 +102,7 @@ Anda dapat menjalankan server backend dan frontend sekaligus dengan perintah:
 composer run dev
 ```
 
-*Atau* jika ingin menjalankannya pada terminal terpisah:
+_Atau_ jika ingin menjalankannya pada terminal terpisah:
 
 ```bash
 # Terminal 1: Backend Laravel
@@ -117,15 +120,15 @@ Buka browser dan akses aplikasi di: **[http://localhost:8000](http://localhost:8
 
 Setelah menjalankan `php artisan migrate --seed`, Anda dapat langsung masuk menggunakan **username** dan password berikut:
 
-| Peran (Role) | Username | Password | Status / Keterangan |
-| :--- | :--- | :--- | :--- |
-| **Kader (Uji Coba Flow)** | `kader` | `password` | **Aktif (Belum Isi Biodata)** 👈 *Gunakan untuk mencoba alur lengkap!* |
-| **Admin** | `admin` | `password` | Aktif (Pengelola sistem) |
-| **Mentor (Entrepreneur)** | `mentor_entrepreneur` | `password` | Aktif (Mentor kewirausahaan) |
-| **Mentor (Politisi)** | `mentor_politisi` | `password` | Aktif (Mentor kebijakan publik) |
-| **Mentor (Akademisi)** | `mentor_akademisi` | `password` | Aktif (Mentor riset/kampus) |
-| **Mentor (Pengabdi)** | `mentor_pengabdi` | `password` | Aktif (Mentor persyarikatan) |
-| **Fasilitator (4 Bidang)** | `fasilitator_[bidang]` | `password` | Aktif (`entrepreneur`, `politisi`, `akademisi`, `pengabdi`) |
+| Peran (Role)               | Username               | Password   | Status / Keterangan                                                    |
+| :------------------------- | :--------------------- | :--------- | :--------------------------------------------------------------------- |
+| **Kader (Uji Coba Flow)**  | `kader`                | `password` | **Aktif (Belum Isi Biodata)** 👈 _Gunakan untuk mencoba alur lengkap!_ |
+| **Admin**                  | `admin`                | `password` | Aktif (Pengelola sistem)                                               |
+| **Mentor (Entrepreneur)**  | `mentor_entrepreneur`  | `password` | Aktif (Mentor kewirausahaan)                                           |
+| **Mentor (Politisi)**      | `mentor_politisi`      | `password` | Aktif (Mentor kebijakan publik)                                        |
+| **Mentor (Akademisi)**     | `mentor_akademisi`     | `password` | Aktif (Mentor riset/kampus)                                            |
+| **Mentor (Pengabdi)**      | `mentor_pengabdi`      | `password` | Aktif (Mentor persyarikatan)                                           |
+| **Fasilitator (4 Bidang)** | `fasilitator_[bidang]` | `password` | Aktif (`entrepreneur`, `politisi`, `akademisi`, `pengabdi`)            |
 
 > Untuk menguji peran **Kader** atau **Fasilitator**, Anda dapat melakukan registrasi baru melalui menu **Register**, kemudian Admin dapat mengaktifkannya di database atau dashboard.
 
@@ -144,6 +147,7 @@ vendor/bin/pest
 ```
 
 Format kode sesuai standar Laravel Pint:
+
 ```bash
 vendor/bin/pint --format agent
 ```
@@ -184,4 +188,3 @@ routes/
 ## 📄 Lisensi
 
 Proyek ini didistribusikan di bawah lisensi [MIT License](LICENSE).
-
