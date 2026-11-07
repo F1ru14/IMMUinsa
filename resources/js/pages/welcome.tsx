@@ -1,5 +1,6 @@
 import { Head, Link, usePage } from '@inertiajs/react';
 import BrandLogo from '@/components/brand-logo';
+import LandingFooter from '@/components/landing-footer';
 import { Button } from '@/components/ui/button';
 import { dashboard, home, login, register } from '@/routes';
 
@@ -136,7 +137,10 @@ export default function Welcome() {
 
                 <main>
                     {/* ============== Hero ============== */}
-                    <section className="relative overflow-hidden bg-[#59040C]">
+                    <section
+                        id="beranda"
+                        className="relative flex min-h-screen flex-col justify-center overflow-hidden bg-[#59040C]"
+                    >
                         {/* Geometry yang disiplin, bukan ornament acak/glow */}
                         <div
                             aria-hidden="true"
@@ -211,7 +215,10 @@ export default function Welcome() {
                     </section>
 
                     {/* ============== Tri Kompetensi Dasar ============== */}
-                    <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:py-20">
+                    <section
+                        id="tri-kompetensi"
+                        className="mx-auto flex min-h-screen w-full max-w-6xl flex-col justify-center px-4 py-16 sm:px-6 lg:py-20"
+                    >
                         <div className="max-w-2xl">
                             <p className="text-[11px] font-bold tracking-[0.2em] text-brand uppercase">
                                 Navetta IMM
@@ -247,7 +254,10 @@ export default function Welcome() {
                     </section>
 
                     {/* ============== Berita & Agenda ============== */}
-                    <section className="border-t border-slate-200 bg-white">
+                    <section
+                        id="berita-agenda"
+                        className="flex min-h-screen flex-col justify-center border-t border-slate-200 bg-white"
+                    >
                         <div className="mx-auto grid max-w-6xl gap-12 px-4 py-16 sm:px-6 lg:grid-cols-3 lg:py-20">
                             {/* Kolom info */}
                             <div className="lg:col-span-2">
@@ -325,7 +335,10 @@ export default function Welcome() {
                     </section>
 
                     {/* ============== CTA band ============== */}
-                    <section className="bg-brand px-4 py-14 sm:px-6">
+                    <section
+                        id="daftar"
+                        className="flex min-h-screen flex-col justify-center bg-brand px-4 py-14 sm:px-6"
+                    >
                         <div className="mx-auto flex max-w-6xl flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
                             <div>
                                 <h2 className="text-xl font-extrabold tracking-tight text-white sm:text-2xl">
@@ -349,17 +362,7 @@ export default function Welcome() {
                 </main>
 
                 {/* ============== Footer ============== */}
-                <footer className="border-t border-slate-900/10 bg-[#43040a] dark:bg-slate-950">
-                    <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-2 px-4 py-8 text-center sm:flex-row sm:px-6 sm:text-left">
-                        <p className="text-xs text-white/50">
-                            {name} — Sistem Informasi Perkaderan Ikatan
-                            Mahasiswa Muhammadiyah UIN Sunan Ampel Surabaya.
-                        </p>
-                        <p className="text-[11px] tracking-widest text-amber-300/60">
-                            CENDEKIAWAN · BERAKHLAK · MULIA
-                        </p>
-                    </div>
-                </footer>
+                <LandingFooter />
             </div>
         </>
     );
