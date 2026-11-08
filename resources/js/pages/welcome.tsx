@@ -289,7 +289,8 @@ export default function Welcome() {
                                         Berita Terkini
                                     </h2>
                                     <p className="mt-2 text-sm leading-relaxed text-slate-500">
-                                        Berita resmi Komisariat IMM UIN Sunan Ampel Surabaya.
+                                        Berita resmi Komisariat IMM UIN Sunan
+                                        Ampel Surabaya.
                                     </p>
                                 </div>
                                 <a
@@ -367,8 +368,7 @@ export default function Welcome() {
                                     Kalender Kegiatan
                                 </h2>
                                 <p className="mt-2 text-sm leading-relaxed text-slate-500">
-                                    Jadwal kegiatan komisariat yang akan
-                                    datang.
+                                    Jadwal kegiatan komisariat yang akan datang.
                                 </p>
                             </div>
 
