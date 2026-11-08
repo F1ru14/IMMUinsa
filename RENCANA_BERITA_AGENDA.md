@@ -1,7 +1,6 @@
 # Rencana: Berita & Agenda Landing Page
 
-> **Status:** Ditunda (backlog) — belum diimplementasikan.
-> Bagian **"Berita & Pengumuman Persyarikatan"** dan **"Agenda Terdekat"** di landing page saat ini masih memakai data placeholder statis di `resources/js/pages/welcome.tsx`. Dokumen ini menyimpan hasil riset dan rancangan agar pengembang berikutnya tinggal mengeksekusi.
+> **Status:** Sudah diimplementasikan — **"Berita Terkini"** (`#berita`) dan **"Agenda Terdekat"** (`#agenda`) kini menjadi dua section terpisah di landing page. Berita menarik 3 konten terbaru + thumbnail dari `https://www.immuinsasby.com/` melalui service `app/Services/PersyarikatanNews.php` (RSS + cache 30 menit + cadangan 24 jam + fallback statis). Agenda masih memakai data placeholder statis di `resources/js/pages/welcome.tsx`.
 
 ---
 

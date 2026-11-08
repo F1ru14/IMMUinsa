@@ -4,12 +4,15 @@ use App\Http\Controllers\BiodataController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FasilitatorController;
 use App\Http\Controllers\KaderJourneyController;
+use App\Services\PersyarikatanNews;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Inertia\Response;
 
-Route::get('/', function (): Response {
-    return Inertia::render('welcome');
+Route::get('/', function (PersyarikatanNews $news): Response {
+    return Inertia::render('welcome', [
+        'news' => $news->latest(),
+    ]);
 })->name('home');
 
 Route::middleware(['auth'])->group(function (): void {

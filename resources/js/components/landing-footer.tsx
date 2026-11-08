@@ -6,8 +6,8 @@ import { dashboard, login, register } from '@/routes';
 const exploreLinks = [
     { label: 'Beranda', href: '#beranda' },
     { label: 'Tri Kompetensi Dasar', href: '#tri-kompetensi' },
-    { label: 'Berita & Pengumuman', href: '#berita-agenda' },
-    { label: 'Agenda Terdekat', href: '#berita-agenda' },
+    { label: 'Berita Terkini', href: '#berita' },
+    { label: 'Agenda Terdekat', href: '#agenda' },
 ];
 
 const accountLinks = [
