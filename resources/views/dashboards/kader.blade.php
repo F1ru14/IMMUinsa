@@ -10,7 +10,7 @@
                 <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold {{ $user->focus_area?->badgeClass() ?? 'bg-gray-100 text-gray-800' }}">
                     Bidang: {{ $user->focus_area?->label() ?? 'Belum Memilih' }}
                 </span>
-                <span class="text-xs text-gray-500">• {{ $user->biodata?->institution ?? 'IMM UINSA' }}</span>
+                <span class="text-xs text-gray-500">• {{ $user->biodata?->institutionLabel() ?? 'IMM UINSA' }}</span>
             </div>
             <h1 class="text-2xl sm:text-3xl font-extrabold text-gray-900 mt-2">
                 Selamat Datang, {{ $user->name }}
@@ -47,7 +47,7 @@
                     </div>
                     <div>
                         <h3 class="font-bold text-gray-900 text-base">{{ $user->fasilitator->name }}</h3>
-                        <p class="text-xs text-gray-500">{{ $user->fasilitator->biodata?->institution ?? 'Fasilitator Perkaderan' }}</p>
+                        <p class="text-xs text-gray-500">{{ $user->fasilitator->biodata?->institutionLabel() ?? 'Fasilitator Perkaderan' }}</p>
                         <p class="text-xs text-gray-700 mt-1">Keahlian: <span class="font-medium">{{ $user->fasilitator->biodata?->expertise ?? '-' }}</span></p>
                         <p class="text-xs text-gray-700">WhatsApp: <span class="font-semibold text-emerald-700">{{ $user->fasilitator->biodata?->phone_number ?? '-' }}</span></p>
                     </div>
@@ -82,7 +82,7 @@
                     </div>
                     <div>
                         <h3 class="font-bold text-gray-900 text-base">{{ $user->mentor->name }}</h3>
-                        <p class="text-xs text-gray-500">{{ $user->mentor->biodata?->institution ?? 'Alumni / Tokoh' }}</p>
+                        <p class="text-xs text-gray-500">{{ $user->mentor->biodata?->institutionLabel() ?? 'Alumni / Tokoh' }}</p>
                         <p class="text-xs text-gray-700 mt-1">Keahlian: <span class="font-medium">{{ $user->mentor->biodata?->expertise ?? '-' }}</span></p>
                         <p class="text-xs text-gray-700">Kontak: <span class="font-semibold text-amber-700">{{ $user->mentor->biodata?->phone_number ?? '-' }}</span></p>
                     </div>
@@ -232,9 +232,21 @@
                     <span class="font-semibold text-gray-800">{{ $user->biodata->address }}</span>
                 </div>
                 <div class="sm:col-span-2">
-                    <span class="text-gray-400 block">Komisariat / Asal Kampus</span>
-                    <span class="font-semibold text-gray-800">{{ $user->biodata->institution ?? '-' }}</span>
+                    <span class="text-gray-400 block">Komisariat</span>
+                    <span class="font-semibold text-gray-800">{{ $user->biodata->institutionLabel() ?? '-' }}</span>
                 </div>
+                @if($user->interestEnums() !== [])
+                    <div class="sm:col-span-2 md:col-span-4">
+                        <span class="text-gray-400 block">Minat</span>
+                        <div class="mt-1 flex flex-wrap gap-1.5">
+                            @foreach($user->interestEnums() as $interest)
+                                <span class="inline-flex rounded-full bg-gray-100 px-2 py-0.5 text-[11px] font-semibold text-gray-700">
+                                    {{ $interest->label() }}
+                                </span>
+                            @endforeach
+                        </div>
+                    </div>
+                @endif
             </div>
         </div>
     @endif

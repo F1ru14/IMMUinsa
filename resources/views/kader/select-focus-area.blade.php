@@ -2,28 +2,14 @@
 
 @section('content')
 <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-    <!-- Stepper Indicator -->
-    <div class="mb-8 max-w-xl mx-auto">
-        <div class="flex items-center justify-between text-xs font-semibold">
-            <span class="text-emerald-700 flex items-center">✓ 1. Biodata</span>
-            <span class="h-0.5 w-12 bg-emerald-600"></span>
-            <span class="text-brand font-bold flex items-center">● 2. Pilih Fokus Bidang</span>
-            <span class="h-0.5 w-12 bg-gray-200"></span>
-            <span class="text-gray-400">3. Pilih Fasilitator</span>
-            <span class="h-0.5 w-12 bg-gray-200"></span>
-            <span class="text-gray-400">4. Penugasan & Mentor</span>
-        </div>
-    </div>
-
-    <div class="text-center max-w-2xl mx-auto mb-10">
-        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-brand-soft text-brand-dark uppercase tracking-wide">
-            Tahap Pergerakan Kader
-        </span>
-        <h1 class="text-2xl sm:text-3xl font-extrabold text-gray-900 mt-2">Pilih 1 dari 4 Fokus Bidang</h1>
-        <p class="text-sm text-gray-600 mt-2">
+    <x-onboarding-header
+        title="Pilih 1 dari 4 Fokus Bidang"
+        badge="Tahap Pergerakan Kader"
+        :current-step="2">
+        <x-slot:description>
             Halo <strong>{{ $user->name }}</strong>, tentukan rumpun pergerakan yang ingin Anda tekuni. Pilihan ini akan menentukan rekomendasi fasilitator pendamping dan materi penugasan Anda.
-        </p>
-    </div>
+        </x-slot:description>
+    </x-onboarding-header>
 
     <form action="{{ route('kader.focus-area.store') }}" method="POST">
         @csrf
@@ -58,7 +44,8 @@
             <p class="text-red-600 text-sm text-center mb-4">{{ $message }}</p>
         @enderror
 
-        <div class="flex justify-center">
+        <div class="flex flex-wrap items-center justify-center gap-3">
+            <x-back-button :fallback="route('biodata.create')" />
             <button type="submit"
                 class="px-8 py-3 bg-brand text-white font-semibold text-sm rounded-xl shadow-md hover:bg-red-800 focus:ring-2 focus:ring-offset-2 focus:ring-brand/40 transition">
                 Simpan Pilihan & Lihat Rekomendasi Fasilitator &rarr;

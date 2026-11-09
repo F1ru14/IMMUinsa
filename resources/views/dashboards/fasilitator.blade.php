@@ -10,7 +10,7 @@
                 <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold {{ $user->focus_area?->badgeClass() ?? 'bg-slate-100 text-slate-700' }}">
                     Fasilitator Bidang: {{ $user->focus_area?->label() ?? 'Umum' }}
                 </span>
-                <span class="text-xs text-gray-500">• {{ $user->biodata?->institution ?? 'IMM UINSA' }}</span>
+                <span class="text-xs text-gray-500">• {{ $user->biodata?->institutionLabel() ?? 'IMM UINSA' }}</span>
             </div>
             <h1 class="text-2xl sm:text-3xl font-extrabold text-gray-900 mt-2">
                 Dashboard Fasilitator
@@ -69,7 +69,7 @@
                                 </span>
                             </div>
                             <p class="text-xs text-gray-600 mt-0.5">
-                                {{ $kader->biodata?->institution ?? 'IMM UINSA' }} • WhatsApp: <strong>{{ $kader->biodata?->phone_number ?? '-' }}</strong>
+                                {{ $kader->biodata?->institutionLabel() ?? 'IMM UINSA' }} • WhatsApp: <strong>{{ $kader->biodata?->phone_number ?? '-' }}</strong>
                             </p>
                         </div>
                     </div>

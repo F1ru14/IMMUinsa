@@ -1,6 +1,9 @@
 <?php
 
 use App\Enums\FocusArea;
+use App\Enums\Interest;
+use App\Enums\Komisariat;
+use App\Enums\Role;
 use App\Models\Task;
 use App\Models\User;
 use Database\Seeders\PerkaderanFlowSeeder;
@@ -18,8 +21,8 @@ test('kader submitting biodata is redirected to choose fasilitator for their foc
         'address' => 'Jl. A. Yani Surabaya',
         'date_of_birth' => '2002-01-01',
         'gender' => 'male',
-        'institution' => 'IMM Fastikom UINSA',
-        'focus_area' => FocusArea::Entrepreneur->value,
+        'institution' => Komisariat::Avenzoar->value,
+        'interests' => [Interest::UsahaDanUmkm->value],
     ]);
 
     $response->assertRedirect(route('kader.fasilitator.create'));
@@ -89,6 +92,15 @@ test('mentor selection is locked until 3 tasks are completed', function () {
     $mentorResponse = $this->actingAs($kader)->get(route('kader.mentor.create'));
     $mentorResponse->assertOk();
     $mentorResponse->assertSee('Pilih Mentor Senior');
+});
+
+test('each focus area is seeded with two fasilitators and two mentors', function () {
+    foreach (FocusArea::cases() as $focusArea) {
+        expect(User::where('role', Role::Fasilitator)->where('focus_area', $focusArea)->count())
+            ->toBe(2)
+            ->and(User::where('role', Role::Mentor)->where('focus_area', $focusArea)->count())
+            ->toBe(2);
+    }
 });
 
 test('kader can select mentor after unlocking and see mentor on dashboard', function () {

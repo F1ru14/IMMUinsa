@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Enums\FocusArea;
+use App\Enums\Interest;
+use App\Enums\Komisariat;
 use App\Enums\Role;
-use App\Models\Biodata;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -15,12 +16,8 @@ class BiodataController extends Controller
     /**
      * Show the form for creating/completing biodata.
      */
-    public function create(Request $request): View|RedirectResponse
+    public function create(Request $request): View
     {
-        if ($request->user()->hasCompletedBiodata()) {
-            return redirect()->route('dashboard');
-        }
-
         return view('biodata.create', [
             'user' => $request->user(),
         ]);
@@ -31,44 +28,82 @@ class BiodataController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        $validated = $request->validate([
+        $user = $request->user();
+        $isKader = $user->hasRole(Role::Kader);
+        $isEditing = $user->hasCompletedBiodata();
+        $previousFocusArea = $user->focus_area;
+
+        $rules = [
             'full_name' => ['required', 'string', 'max:255'],
-            'phone_number' => ['required', 'string', 'max:25'],
+            'phone_number' => ['required', 'string', 'regex:/^[0-9]+$/', 'max:25'],
             'address' => ['required', 'string'],
             'date_of_birth' => ['required', 'date'],
             'gender' => ['required', 'in:male,female'],
             'avatar' => ['nullable', 'image', 'max:2048'],
-            'institution' => ['nullable', 'string', 'max:255'],
-            'focus_area' => ['required', 'string', Rule::enum(FocusArea::class)],
+            'institution' => ['nullable', Rule::enum(Komisariat::class)],
             'expertise' => ['nullable', 'string', 'max:255'],
-        ]);
+        ];
+
+        if ($isKader) {
+            $rules['interests'] = ['required', 'array', 'min:1', 'max:3'];
+            $rules['interests.*'] = ['string', 'distinct', Rule::enum(Interest::class)];
+        } else {
+            $rules['focus_area'] = ['required', 'string', Rule::enum(FocusArea::class)];
+        }
+
+        $validated = $request->validate($rules);
 
         if ($request->hasFile('avatar')) {
             $validated['avatar'] = $request->file('avatar')->store('avatars', 'public');
         }
 
         $biodataData = $validated;
-        unset($biodataData['focus_area']);
+        unset($biodataData['focus_area'], $biodataData['interests']);
 
-        $request->user()->biodata()->updateOrCreate(
-            ['user_id' => $request->user()->id],
+        $user->biodata()->updateOrCreate(
+            ['user_id' => $user->id],
             $biodataData
         );
 
-        // Akun didaftarkan hanya dengan username, jadi nama tampilan baru
-        // dilengkapi di sini memakai nama lengkap dari biodata. Bidang yang
-        // dipilih sekaligus dipakai untuk mencocokkan fasilitator & mentor.
-        $request->user()->update([
-            'name' => $validated['full_name'],
-            'focus_area' => FocusArea::from($validated['focus_area']),
-        ]);
+        // Kader memilih minat, lalu sistem memetakan minat tersebut menjadi
+        // satu rumpun pergerakan utama. Fasilitator dan mentor memilih
+        // rumpun secara langsung karena sudah memiliki bidang keahlian.
+        if ($isKader) {
+            $focusArea = Interest::determineFocusArea($validated['interests']);
 
-        if ($request->user()->hasRole(Role::Kader)) {
-            return redirect()->route('kader.fasilitator.create')
-                ->with('status', 'Biodata dan bidang berhasil disimpan! Silakan pilih Fasilitator pendamping Anda.');
+            $user->update([
+                'name' => $validated['full_name'],
+                'interests' => $validated['interests'],
+                'focus_area' => $focusArea,
+            ]);
+
+            if ($focusArea === null) {
+                return redirect()->route('kader.focus-area.create')
+                    ->with('warning', 'Minat yang kamu pilih tersebar merata antar rumpun. Silakan pilih satu rumpun utama untuk melanjutkan.');
+            }
+
+            if ($isEditing && $previousFocusArea !== $focusArea) {
+                $user->update([
+                    'fasilitator_id' => null,
+                    'mentor_id' => null,
+                ]);
+
+                return redirect()->route('kader.fasilitator.create')
+                    ->with('status', 'Bidang perkaderan berubah. Silakan pilih fasilitator pendamping yang baru.');
+            }
+
+            if (! $isEditing) {
+                return redirect()->route('kader.fasilitator.create')
+                    ->with('status', 'Biodata dan minat berhasil disimpan! Silakan pilih Fasilitator pendamping Anda.');
+            }
+        } else {
+            $user->update([
+                'name' => $validated['full_name'],
+                'focus_area' => FocusArea::from($validated['focus_area']),
+            ]);
         }
 
         return redirect()->route('dashboard')
-            ->with('status', 'Biodata successfully submitted.');
+            ->with('status', $isEditing ? 'Biodata berhasil diperbarui.' : 'Biodata successfully submitted.');
     }
 }

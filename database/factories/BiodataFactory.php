@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\Komisariat;
 use App\Models\Biodata;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -28,7 +29,7 @@ class BiodataFactory extends Factory
             'date_of_birth' => fake()->date('Y-m-d', '-18 years'),
             'gender' => fake()->randomElement(['male', 'female']),
             'avatar' => null,
-            'institution' => 'IMM UINSA',
+            'institution' => Komisariat::Avenzoar->value,
             'expertise' => fake()->randomElement(['Kaderisasi', 'Public Speaking', 'Keorganisasian']),
         ];
     }

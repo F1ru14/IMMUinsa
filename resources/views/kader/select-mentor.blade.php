@@ -2,15 +2,15 @@
 
 @section('content')
 <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-    <div class="text-center max-w-2xl mx-auto mb-10">
-        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800 uppercase tracking-wide">
-            Milestone Tercapai: 3/3 Tugas Selesai
-        </span>
-        <h1 class="text-2xl sm:text-3xl font-extrabold text-gray-900 mt-2">Pilih Mentor Senior Bidang {{ $user->focus_area->label() }}</h1>
-        <p class="text-sm text-gray-600 mt-2">
+    <x-onboarding-header
+        :title="'Pilih Mentor Senior Bidang '.$user->focus_area->label()"
+        badge="Milestone Tercapai: 3/3 Tugas Selesai"
+        badge-class="bg-emerald-100 text-emerald-800 border-emerald-200"
+        :current-step="4">
+        <x-slot:description>
             Selamat <strong>{{ $user->name }}</strong>! Anda telah berhasil menuntaskan seluruh tugas perkaderan awal. Sekarang saatnya memilih Mentor senior untuk pendampingan jangka panjang dan jejaring karir/pergerakan Anda.
-        </p>
-    </div>
+        </x-slot:description>
+    </x-onboarding-header>
 
     @if($mentors->isEmpty())
         <div class="bg-white p-8 rounded-2xl border border-gray-200 text-center max-w-md mx-auto">
@@ -27,7 +27,7 @@
                             </div>
                             <div>
                                 <h3 class="font-bold text-gray-900 text-base">{{ $mentor->name }}</h3>
-                                <p class="text-xs text-gray-500">{{ $mentor->biodata->institution ?? 'Alumni & Tokoh Muhammadiyah' }}</p>
+                                <p class="text-xs text-gray-500">{{ $mentor->biodata?->institutionLabel() ?? 'Alumni & Tokoh Muhammadiyah' }}</p>
                                 <span class="inline-block mt-1 text-xs text-amber-700 font-medium bg-amber-50 px-2 py-0.5 rounded">
                                     Mentor Senior
                                 </span>
@@ -58,6 +58,10 @@
             @endforeach
         </div>
     @endif
+
+    <div class="mt-8 text-center">
+        <x-back-button :fallback="route('kader.dashboard')" />
+    </div>
 </div>
 @endsection
 

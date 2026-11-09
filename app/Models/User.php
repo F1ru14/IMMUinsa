@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\FocusArea;
+use App\Enums\Interest;
 use App\Enums\Role;
 use Database\Factories\UserFactory;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -25,6 +26,7 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
  * @property Role $role
  * @property bool $is_active
  * @property FocusArea|null $focus_area
+ * @property array<int, string>|null $interests
  * @property int|null $fasilitator_id
  * @property int|null $mentor_id
  * @property Carbon|null $email_verified_at
@@ -39,7 +41,7 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
  * @property-read User|null $fasilitator
  * @property-read User|null $mentor
  */
-#[Fillable(['name', 'username', 'email', 'password', 'role', 'is_active', 'focus_area', 'fasilitator_id', 'mentor_id'])]
+#[Fillable(['name', 'username', 'email', 'password', 'role', 'is_active', 'focus_area', 'interests', 'fasilitator_id', 'mentor_id'])]
 #[Hidden(['password', 'two_factor_secret', 'two_factor_recovery_codes', 'remember_token'])]
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -60,6 +62,7 @@ class User extends Authenticatable implements MustVerifyEmail
             'role' => Role::class,
             'is_active' => 'boolean',
             'focus_area' => FocusArea::class,
+            'interests' => 'array',
         ];
     }
 
@@ -173,6 +176,19 @@ class User extends Authenticatable implements MustVerifyEmail
     public function hasSelectedFocusArea(): bool
     {
         return $this->focus_area !== null;
+    }
+
+    /**
+     * Get the user's selected interests as enum instances.
+     *
+     * @return array<int, Interest>
+     */
+    public function interestEnums(): array
+    {
+        return array_values(array_filter(array_map(
+            fn (string $value): ?Interest => Interest::tryFrom($value),
+            $this->interests ?? []
+        )));
     }
 
     /**

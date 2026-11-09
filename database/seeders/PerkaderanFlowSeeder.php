@@ -48,12 +48,29 @@ class PerkaderanFlowSeeder extends Seeder
                 'expertise' => 'Founder Digital Agency & Inkubasi UMKM',
             ],
             [
+                'username' => 'fasilitator_entrepreneur_2',
+                'email' => 'fasilitator.entrepreneur2@immuinsa.org',
+                'name' => 'Siti Rahmawati, S.E.',
+                'focus' => FocusArea::Entrepreneur,
+                'institution' => 'IMM FEB UINSA / Komunitas UMKM Sidoarjo',
+                'expertise' => 'Digital Marketing & Manajemen Rantai Pasok UMKM',
+                'gender' => 'female',
+            ],
+            [
                 'username' => 'fasilitator_politisi',
                 'email' => 'fasilitator.politisi@immuinsa.org',
                 'name' => 'Dian Permata, S.H.',
                 'focus' => FocusArea::Politisi,
                 'institution' => 'IMM FDK UINSA / Staf Kebijakan Publik',
                 'expertise' => 'Advokasi Anggaran & Analisis Parlemen',
+            ],
+            [
+                'username' => 'fasilitator_politisi_2',
+                'email' => 'fasilitator.politisi2@immuinsa.org',
+                'name' => 'Bagus Setiawan, S.IP.',
+                'focus' => FocusArea::Politisi,
+                'institution' => 'IMM FISIP UINSA / Peneliti Kebijakan Publik',
+                'expertise' => 'Riset Politik & Komunikasi Publik',
             ],
             [
                 'username' => 'fasilitator_akademisi',
@@ -64,12 +81,29 @@ class PerkaderanFlowSeeder extends Seeder
                 'expertise' => 'Metodologi Penelitian & Jurnal Terindeks',
             ],
             [
+                'username' => 'fasilitator_akademisi_2',
+                'email' => 'fasilitator.akademisi2@immuinsa.org',
+                'name' => 'Aisyah Nur Fadhilah, M.Sc.',
+                'focus' => FocusArea::Akademisi,
+                'institution' => 'IMM FST / Laboratorium Riset UINSA',
+                'expertise' => 'Publikasi Ilmiah & Analisis Data Penelitian',
+                'gender' => 'female',
+            ],
+            [
                 'username' => 'fasilitator_pengabdi',
                 'email' => 'fasilitator.pengabdi@immuinsa.org',
                 'name' => 'Ridwan Mansyur, S.Sos.',
                 'focus' => FocusArea::PengabdiPersyarikatan,
                 'institution' => 'IMM Korkom / Majelis MPKSDI',
                 'expertise' => 'Manajemen Keorganisasian & Ideologi Muhammadiyah',
+            ],
+            [
+                'username' => 'fasilitator_pengabdi_2',
+                'email' => 'fasilitator.pengabdi2@immuinsa.org',
+                'name' => 'Muhammad Fikri, S.Pd.I.',
+                'focus' => FocusArea::PengabdiPersyarikatan,
+                'institution' => 'IMM FAI / Majelis Dikdasmen Muhammadiyah',
+                'expertise' => 'Dakwah Komunitas & Pembinaan Ranting',
             ],
         ];
 
@@ -94,7 +128,7 @@ class PerkaderanFlowSeeder extends Seeder
                     'phone_number' => '08123456789'.$fasil->id,
                     'address' => 'Surabaya, Jawa Timur',
                     'date_of_birth' => '1998-04-12',
-                    'gender' => 'male',
+                    'gender' => $data['gender'] ?? 'male',
                     'institution' => $data['institution'],
                     'expertise' => $data['expertise'],
                 ]
@@ -112,6 +146,15 @@ class PerkaderanFlowSeeder extends Seeder
                 'expertise' => 'Scale-up Bisnis, Ekosistem Venture & Angel Investor',
             ],
             [
+                'username' => 'mentor_entrepreneur_2',
+                'email' => 'mentor.entrepreneur2@immuinsa.org',
+                'name' => 'Hj. Nurul Hidayati, S.E., M.M.',
+                'focus' => FocusArea::Entrepreneur,
+                'institution' => 'Aisyiyah Economic Empowerment / JSM Jawa Timur',
+                'expertise' => 'Kewirausahaan Sosial & Pemberdayaan Perempuan',
+                'gender' => 'female',
+            ],
+            [
                 'username' => 'mentor_politisi',
                 'email' => 'mentor.politisi@immuinsa.org',
                 'name' => 'H. Syamsul Arifin, M.Si.',
@@ -120,12 +163,29 @@ class PerkaderanFlowSeeder extends Seeder
                 'expertise' => 'Strategi Elektoral, Diplomasi Politik & Tata Kelola Negara',
             ],
             [
+                'username' => 'mentor_politisi_2',
+                'email' => 'mentor.politisi2@immuinsa.org',
+                'name' => 'Drs. Abdul Wachid, M.Si.',
+                'focus' => FocusArea::Politisi,
+                'institution' => 'DPRD Provinsi Jawa Timur / PWM',
+                'expertise' => 'Legislasi, Advokasi Kebijakan & Etika Politik',
+            ],
+            [
                 'username' => 'mentor_akademisi',
                 'email' => 'mentor.akademisi@immuinsa.org',
                 'name' => 'Prof. Dr. Siti Aminah, M.Ag.',
                 'focus' => FocusArea::Akademisi,
                 'institution' => 'Guru Besar UIN Sunan Ampel Surabaya',
                 'expertise' => 'Filsafat Islam, Riset Post-Doktoral & Kolaborasi Internasional',
+                'gender' => 'female',
+            ],
+            [
+                'username' => 'mentor_akademisi_2',
+                'email' => 'mentor.akademisi2@immuinsa.org',
+                'name' => 'Dr. Ahmad Zainuddin, M.Phil.',
+                'focus' => FocusArea::Akademisi,
+                'institution' => 'Dosen Pascasarjana UIN Sunan Ampel',
+                'expertise' => 'Studi Islam Kontemporer & Riset Internasional',
             ],
             [
                 'username' => 'mentor_pengabdi',
@@ -134,6 +194,14 @@ class PerkaderanFlowSeeder extends Seeder
                 'focus' => FocusArea::PengabdiPersyarikatan,
                 'institution' => 'Pimpinan Wilayah Muhammadiyah (PWM)',
                 'expertise' => 'Kaderisasi Ulama Tarjih & Kepemimpinan Persyarikatan',
+            ],
+            [
+                'username' => 'mentor_pengabdi_2',
+                'email' => 'mentor.pengabdi2@immuinsa.org',
+                'name' => 'Ust. Zainal Abidin, S.Ag., M.Pd.I.',
+                'focus' => FocusArea::PengabdiPersyarikatan,
+                'institution' => 'Majelis Tarjih & Tajdid PWM Jawa Timur',
+                'expertise' => 'Ideologi Muhammadiyah & Pengembangan Amal Usaha',
             ],
         ];
 
@@ -158,7 +226,7 @@ class PerkaderanFlowSeeder extends Seeder
                     'phone_number' => '08129876543'.$mentor->id,
                     'address' => 'Surabaya, Jawa Timur',
                     'date_of_birth' => '1980-08-17',
-                    'gender' => 'male',
+                    'gender' => $data['gender'] ?? 'male',
                     'institution' => $data['institution'],
                     'expertise' => $data['expertise'],
                 ]

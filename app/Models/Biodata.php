@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\Komisariat;
 use Database\Factories\BiodataFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -50,6 +51,20 @@ class Biodata extends Model
         return [
             'date_of_birth' => 'date',
         ];
+    }
+
+    /**
+     * Get the human-readable komisariat name.
+     *
+     * Falls back to the stored value for legacy free-text data.
+     */
+    public function institutionLabel(): ?string
+    {
+        if (blank($this->institution)) {
+            return null;
+        }
+
+        return Komisariat::tryFrom($this->institution)?->label() ?? $this->institution;
     }
 
     /**

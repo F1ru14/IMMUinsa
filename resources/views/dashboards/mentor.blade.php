@@ -10,7 +10,7 @@
                 <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold {{ $user->focus_area?->badgeClass() ?? 'bg-amber-100 text-amber-800' }}">
                     Mentor Bidang: {{ $user->focus_area?->label() ?? 'Supervisi Umum' }}
                 </span>
-                <span class="text-xs text-gray-500">• {{ $user->biodata?->institution ?? 'Alumni / Tokoh Persyarikatan' }}</span>
+                <span class="text-xs text-gray-500">• {{ $user->biodata?->institutionLabel() ?? 'Alumni / Tokoh Persyarikatan' }}</span>
             </div>
             <h1 class="text-2xl sm:text-3xl font-extrabold text-gray-900 mt-2">
                 Dashboard Mentor Senior
@@ -62,7 +62,7 @@
                                 </span>
                             </div>
                             <p class="text-xs text-gray-600 mt-0.5">
-                                {{ $mentee->biodata?->institution ?? 'IMM UINSA' }} • WhatsApp: <strong>{{ $mentee->biodata?->phone_number ?? '-' }}</strong>
+                                {{ $mentee->biodata?->institutionLabel() ?? 'IMM UINSA' }} • WhatsApp: <strong>{{ $mentee->biodata?->phone_number ?? '-' }}</strong>
                             </p>
                         </div>
                     </div>
@@ -87,7 +87,7 @@
                         <div class="bg-gray-50 p-4 rounded-xl border border-gray-200 text-xs">
                             <span class="font-bold text-gray-500 uppercase block text-[10px]">Fasilitator Lapangan Pendamping:</span>
                             <span class="font-bold text-gray-900 text-sm mt-1 block">{{ $mentee->fasilitator?->name ?? 'Belum Ditentukan' }}</span>
-                            <span class="text-gray-500 block">{{ $mentee->fasilitator?->biodata?->institution ?? '-' }}</span>
+                            <span class="text-gray-500 block">{{ $mentee->fasilitator?->biodata?->institutionLabel() ?? '-' }}</span>
                         </div>
 
                         <div>
