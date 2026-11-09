@@ -9,8 +9,5 @@ class RegisterResponse extends BaseRegisterResponse
 {
     use RedirectsInertiaVisits;
 
-    /**
-     * The Fortify redirect name used to resolve the default destination.
-     */
     protected string $redirectName = 'register';
 }

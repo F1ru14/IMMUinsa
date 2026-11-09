@@ -30,9 +30,11 @@ Route::middleware(['auth'])->group(function (): void {
     // Role-specific Dashboards & Journeys
     Route::middleware(['role:admin'])->prefix('admin')->name('admin.')->group(function (): void {
         Route::get('/dashboard', [DashboardController::class, 'admin'])->name('dashboard');
+        Route::patch('/users/{user}/approve', [DashboardController::class, 'approveUser'])->name('users.approve');
+        Route::delete('/users/{user}', [DashboardController::class, 'rejectUser'])->name('users.reject');
     });
 
-    Route::middleware(['role:mentor'])->prefix('mentor')->name('mentor.')->group(function (): void {
+    Route::middleware(['role:mentor', 'biodata.complete'])->prefix('mentor')->name('mentor.')->group(function (): void {
         Route::get('/dashboard', [DashboardController::class, 'mentor'])->name('dashboard');
     });
 

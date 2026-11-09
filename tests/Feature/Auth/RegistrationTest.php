@@ -27,7 +27,19 @@ test('new users can register with a username and password', function () {
 
     expect($user)->not->toBeNull()
         ->and($user->email)->toBeNull()
-        ->and($user->name)->toBe('testuser');
+        ->and($user->name)->toBe('testuser')
+        ->and($user->is_active)->toBeTrue();
+});
+
+test('inertia registration requests receive a full page redirect to the dashboard', function () {
+    $response = $this->post(route('register.store'), [
+        'username' => 'newkader',
+        'password' => 'password',
+        'password_confirmation' => 'password',
+    ], ['X-Inertia' => 'true']);
+
+    $response->assertStatus(409);
+    $response->assertHeader('X-Inertia-Location', route('dashboard'));
 });
 
 test('registration requires a unique username', function () {

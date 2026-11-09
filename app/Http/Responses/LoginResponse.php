@@ -9,8 +9,5 @@ class LoginResponse extends BaseLoginResponse
 {
     use RedirectsInertiaVisits;
 
-    /**
-     * The Fortify redirect name used to resolve the default destination.
-     */
     protected string $redirectName = 'login';
 }

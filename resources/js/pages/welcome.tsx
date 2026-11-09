@@ -102,7 +102,7 @@ export default function Welcome() {
 
     return (
         <>
-            <Head title={`${name} — Sistem Perkaderan`} />
+            <Head title={`${name} — Platform Digital Perkaderan`} />
             <div className="theme-light flex min-h-svh flex-col bg-slate-50 pt-16 text-slate-800">
                 {/* ============== Top bar ============== */}
                 <header className="fixed inset-x-0 top-0 z-50 border-b border-slate-900/10 bg-brand/95 px-4 backdrop-blur-sm sm:px-6">
@@ -119,7 +119,7 @@ export default function Welcome() {
                                     {name}
                                 </span>
                                 <span className="text-[11px] text-white/60">
-                                    Sistem Perkaderan IMM UINSA
+                                    Platform Digital Perkaderan IMM UINSA
                                 </span>
                             </div>
                         </Link>
@@ -147,7 +147,7 @@ export default function Welcome() {
                                         className="rounded-lg px-4 py-2 text-sm font-semibold text-white/80 transition hover:text-amber-300"
                                     >
                                         <Link href={register()}>
-                                            Pendaftaran Kader
+                                            Daftar
                                         </Link>
                                     </Button>
                                 </>
@@ -199,7 +199,7 @@ export default function Welcome() {
                                         className="bg-amber-400 font-bold text-slate-900 hover:bg-amber-300"
                                     >
                                         <Link href={register()}>
-                                            Pendaftaran Kader
+                                            Daftar
                                         </Link>
                                     </Button>
                                     <Button
@@ -397,32 +397,6 @@ export default function Welcome() {
                                     </li>
                                 ))}
                             </ol>
-                        </div>
-                    </section>
-
-                    {/* ============== CTA band ============== */}
-                    <section
-                        id="daftar"
-                        className="flex min-h-screen scroll-mt-16 flex-col justify-center bg-brand px-4 py-14 sm:px-6"
-                    >
-                        <div className="mx-auto flex max-w-6xl flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
-                            <div>
-                                <h2 className="text-xl font-extrabold tracking-tight text-white sm:text-2xl">
-                                    Siap memulai perjalanan perkaderan Anda?
-                                </h2>
-                                <p className="mt-1 text-sm text-white/70">
-                                    Daftar sebagai Kader atau Fasilitator, lalu
-                                    akun Anda diverifikasi oleh Administrator
-                                    komisariat.
-                                </p>
-                            </div>
-                            <Button
-                                asChild
-                                size="lg"
-                                className="shrink-0 bg-amber-400 font-bold text-slate-900 hover:bg-amber-300"
-                            >
-                                <Link href={register()}>Daftar Sekarang</Link>
-                            </Button>
                         </div>
                     </section>
                 </main>

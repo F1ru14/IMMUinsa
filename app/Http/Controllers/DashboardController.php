@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Enums\Role;
 use App\Models\Task;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -40,7 +41,52 @@ class DashboardController extends Controller
     {
         return view('dashboards.admin', [
             'user' => $request->user(),
+            'stats' => [
+                'total' => User::count(),
+                'pending' => User::where('is_active', false)->count(),
+                'fasilitator' => User::where('role', Role::Fasilitator)->count(),
+                'kader' => User::where('role', Role::Kader)->count(),
+            ],
+            'pendingUsers' => User::query()
+                ->where('is_active', false)
+                ->with('biodata')
+                ->oldest()
+                ->get(),
+            'recentUsers' => User::query()
+                ->with('biodata')
+                ->latest()
+                ->take(10)
+                ->get(),
         ]);
+    }
+
+    /**
+     * Approve a pending user account.
+     */
+    public function approveUser(User $user): RedirectResponse
+    {
+        if ($user->is_active) {
+            return back()->with('status', "Akun {$user->username} sudah aktif.");
+        }
+
+        $user->update(['is_active' => true]);
+
+        return back()->with('status', "Akun {$user->username} berhasil disetujui.");
+    }
+
+    /**
+     * Reject and remove a pending user account.
+     */
+    public function rejectUser(User $user): RedirectResponse
+    {
+        if ($user->is_active || $user->hasRole(Role::Admin)) {
+            return back()->with('error', 'Hanya akun yang menunggu persetujuan yang dapat ditolak.');
+        }
+
+        $username = $user->username;
+        $user->delete();
+
+        return back()->with('status', "Pendaftaran {$username} ditolak dan dihapus.");
     }
 
     /**

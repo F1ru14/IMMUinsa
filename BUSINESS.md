@@ -1,6 +1,6 @@
-# Panduan Proses Bisnis Sistem Perkaderan IMM UINSA
+# Panduan Proses Bisnis Platform Digital Perkaderan IMM UINSA
 
-Dokumen ini menjelaskan model proses bisnis, alur tata kelola perkaderan (_business logic_), pemetaan peran (_stakeholder mapping_), dan siklus bimbingan berjenjang yang diterapkan pada platform digital **Sistem Informasi Perkaderan IMM UIN Sunan Ampel Surabaya**.
+Dokumen ini menjelaskan model proses bisnis, alur tata kelola perkaderan (_business logic_), pemetaan peran (_stakeholder mapping_), dan siklus bimbingan berjenjang yang diterapkan pada **Platform Digital Perkaderan IMM UIN Sunan Ampel Surabaya**.
 
 ---
 
@@ -37,7 +37,7 @@ Sistem memetakan kaderisasi ke dalam 4 spesialisasi minat pergerakan:
 
 ```
 ┌────────────────────────────────────────────────────────────────────────┐
-│                              SISTEM PERKADERAN                         │
+│                      PLATFORM DIGITAL PERKADERAN                       │
 ├───────────────┬────────────────────────────────────────────────────────┤
 │ Admin         │ Verifikasi pendaftaran, kontrol pengguna, tata kelola  │
 │ Mentor        │ Supervisi strategis, bimbingan jejaring, arahan makro  │
@@ -48,8 +48,8 @@ Sistem memetakan kaderisasi ke dalam 4 spesialisasi minat pergerakan:
 
 | Fitur / Alur Bisnis                        | Admin | Mentor | Fasilitator |         Kader          |
 | :----------------------------------------- | :---: | :----: | :---------: | :--------------------: |
-| Registrasi Akun Mandiri                    |  ❌   |   ❌   |     ✅      |           ✅           |
-| Aktivasi / Persetujuan Akun                |  ✅   |   ❌   |     ❌      |           ❌           |
+| Registrasi Akun Mandiri                    |  ❌   |   ✅   |     ✅      |           ✅           |
+| Aktivasi Akun Fasilitator & Mentor         |  ✅   |   ❌   |     ❌      |           ❌           |
 | Pengisian Biodata Wajib                    |  ❌   |   ❌   |     ✅      |           ✅           |
 | Pemilihan 4 Fokus Bidang                   |  ❌   |   ❌   |     ❌      |           ✅           |
 | Pemilihan Fasilitator Pendamping           |  ❌   |   ❌   |     ❌      |           ✅           |
@@ -64,12 +64,16 @@ Sistem memetakan kaderisasi ke dalam 4 spesialisasi minat pergerakan:
 
 ```mermaid
 flowchart TD
-    Start(["Calon Kader / Fasilitator Mendaftar"]) --> RegisterForm["Registrasi Publik (Pilih Kader / Fasilitator)"]
-    RegisterForm --> PendingStatus["Status: Akun Menunggu Persetujuan Admin (is_active = false)"]
+    Start(["Calon Kader / Fasilitator / Mentor Mendaftar"]) --> RegisterForm["Registrasi Publik (Pilih Kader / Fasilitator / Mentor)"]
+    RegisterForm --> RoleCheck{"Memilih Peran Kader?"}
+
+    RoleCheck -- "Ya" --> ActiveAccount["Akun Kader Langsung Aktif (is_active = true)"]
+    RoleCheck -- "Tidak (Fasilitator/Mentor)" --> PendingStatus["Status: Akun Menunggu Persetujuan Admin (is_active = false)"]
 
     PendingStatus --> AdminReview{"Admin Memverifikasi Identitas?"}
-    AdminReview -- "Ditolak / Belum" --> PendingStatus
-    AdminReview -- "Disetujui" --> ActiveAccount["Akun Aktif (is_active = true)"]
+    AdminReview -- "Ditolak" --> RejectedAccount["Akun Dihapus oleh Admin"]
+    AdminReview -- "Belum" --> PendingStatus
+    AdminReview -- "Disetujui" --> ActiveAccount
 
     ActiveAccount --> LoginUser["Kader Melakukan Login Pertama Kali"]
     LoginUser --> CheckBiodata{"Biodata Lengkap?"}
@@ -104,9 +108,9 @@ flowchart TD
 ### Fase 1: Gatekeeping & Verifikasi Keanggotaan
 
 - Calon kader mendaftar mandiri via menu Register publik.
-- Sistem secara ketat membatasi pendaftaran hanya untuk peran **Kader** dan **Fasilitator** (mencegah pendaftaran tidak sah sebagai Admin/Mentor).
+- Sistem secara ketat membatasi pendaftaran hanya untuk peran **Kader**, **Fasilitator**, dan **Mentor** (mencegah pendaftaran tidak sah sebagai Admin).
 - Formulir registrasi mewajibkan pemilihan peran (mengirim field `role`), tervalidasi oleh whitelist `Role::publicRoles()` di validator backend.
-- Akun baru berstatus non-aktif (`is_active = false`) hingga Admin memverifikasi keabsahan komisariat pendaftar.
+- Akun **Kader** langsung aktif (`is_active = true`) setelah registrasi. Akun **Fasilitator** dan **Mentor** berstatus non-aktif (`is_active = false`) hingga Admin memverifikasi keabsahan komisariat pendaftar.
 - Selama berstatus non-aktif, pengguna diarahkan ke halaman **Pending Approval** (`/dashboard`): nama pengguna beserta peran yang didaftarkan ditampilkan, dilengkapi tombol _Cek Status_ dan _Logout_.
 
 ### Fase 2: Pengisian Data Pokok Organisasi (Mandatory Biodata)
@@ -149,7 +153,7 @@ flowchart TD
 
 > [!IMPORTANT]
 > **Aturan 1 (Role Whitelist):**
-> Pendaftaran publik hanya menerima role `kader` dan `fasilitator`. Usaha pendaftaran sebagai `admin` atau `mentor` akan ditolak secara otomatis oleh validator sistem.
+> Pendaftaran publik hanya menerima role `kader`, `fasilitator`, dan `mentor`. Usaha pendaftaran sebagai `admin` akan ditolak secara otomatis oleh validator sistem. Akun `kader` langsung aktif, sedangkan `fasilitator` dan `mentor` menunggu persetujuan Admin.
 
 > [!IMPORTANT]
 > **Aturan 2 (No Biodata, No Dashboard):**

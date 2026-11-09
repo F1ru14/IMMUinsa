@@ -9,7 +9,7 @@ beforeEach(function () {
     $this->seed(PerkaderanFlowSeeder::class);
 });
 
-test('kader submitting biodata is redirected to choose focus area', function () {
+test('kader submitting biodata is redirected to choose fasilitator for their focus area', function () {
     $kader = User::factory()->kader()->create();
 
     $response = $this->actingAs($kader)->post(route('biodata.store'), [
@@ -19,10 +19,12 @@ test('kader submitting biodata is redirected to choose focus area', function () 
         'date_of_birth' => '2002-01-01',
         'gender' => 'male',
         'institution' => 'IMM Fastikom UINSA',
+        'focus_area' => FocusArea::Entrepreneur->value,
     ]);
 
-    $response->assertRedirect(route('kader.focus-area.create'));
-    expect($kader->fresh()->hasCompletedBiodata())->toBeTrue();
+    $response->assertRedirect(route('kader.fasilitator.create'));
+    expect($kader->fresh()->hasCompletedBiodata())->toBeTrue()
+        ->and($kader->fresh()->focus_area)->toBe(FocusArea::Entrepreneur);
 });
 
 test('kader can select 1 of 4 focus areas', function () {

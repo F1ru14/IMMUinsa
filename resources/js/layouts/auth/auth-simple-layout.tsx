@@ -36,7 +36,7 @@ export default function AuthSimpleLayout({
                             {name}
                         </p>
                         <p className="text-[11px] text-white/60">
-                            Sistem Perkaderan IMM UINSA
+                            Platform Digital Perkaderan IMM UINSA
                         </p>
                     </div>
                 </Link>
@@ -86,7 +86,7 @@ export default function AuthSimpleLayout({
                             {name}
                         </p>
                         <p className="text-[11px] text-slate-500">
-                            Sistem Perkaderan IMM UINSA
+                            Platform Digital Perkaderan IMM UINSA
                         </p>
                     </div>
                 </Link>
@@ -118,7 +118,7 @@ export default function AuthSimpleLayout({
                     </p>
 
                     <p className="mt-2 text-center text-[11px] leading-relaxed text-slate-400">
-                        {name} — Sistem Informasi Perkaderan IMM UIN Sunan Ampel
+                        {name} — Platform Digital Perkaderan IMM UIN Sunan Ampel
                         Surabaya
                     </p>
                 </div>

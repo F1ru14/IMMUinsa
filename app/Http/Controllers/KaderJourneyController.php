@@ -75,7 +75,9 @@ class KaderJourneyController extends Controller
             'fasilitator_id' => [
                 'required',
                 'integer',
-                Rule::exists('users', 'id')->where(fn ($query) => $query->where('role', Role::Fasilitator->value)),
+                Rule::exists('users', 'id')->where(fn ($query) => $query
+                    ->where('role', Role::Fasilitator->value)
+                    ->where('focus_area', $request->user()->focus_area?->value)),
             ],
         ]);
 

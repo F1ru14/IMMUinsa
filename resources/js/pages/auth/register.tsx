@@ -16,7 +16,7 @@ type Props = {
     passwordRules: string;
 };
 
-type RoleOption = 'kader' | 'fasilitator';
+type RoleOption = 'kader' | 'fasilitator' | 'mentor';
 
 const roleOptions: Array<{
     value: RoleOption;
@@ -35,10 +35,16 @@ const roleOptions: Array<{
         description:
             'Pendamping lapangan yang membimbing kader, memeriksa tugas, dan memberi evaluasi berkala.',
     },
+    {
+        value: 'mentor',
+        title: 'Mentor',
+        description:
+            'Mentor senior yang mendampingi kader pada tahap akhir perkaderan dan memberi arahan pengembangan.',
+    },
 ];
 
 const fieldClass =
-    'h-10 border-slate-300 bg-white shadow-none focus-visible:border-brand focus-visible:ring-brand/25';
+    'h-10 border-slate-300 bg-white text-slate-900 shadow-none focus-visible:border-brand focus-visible:ring-brand/25';
 
 const labelClass = 'text-[13px] font-semibold text-slate-700';
 
@@ -124,8 +130,8 @@ export default function Register({ passwordRules }: Props) {
                                     <InputError message={errors.role} />
                                 </div>
                                 <p className="text-xs leading-relaxed text-slate-400">
-                                    Akun Admin dan Mentor hanya dibuat oleh
-                                    Administrator melalui seeder/panel Admin.
+                                    Akun Admin hanya dibuat oleh Administrator
+                                    melalui seeder/panel Admin.
                                 </p>
                             </div>
 
@@ -198,14 +204,25 @@ export default function Register({ passwordRules }: Props) {
                                 />
                             </div>
 
-                            <div className="rounded-lg border border-amber-200 bg-amber-50 p-3.5 text-xs leading-relaxed text-amber-900">
-                                <strong className="font-semibold">
-                                    Menunggu persetujuan.
-                                </strong>{' '}
-                                Setelah mendaftar, akun Anda akan diaktivasi
-                                oleh Administrator komisariat sebelum dapat
-                                digunakan.
-                            </div>
+                            {role === 'kader' ? (
+                                <div className="rounded-lg border border-emerald-200 bg-emerald-50 p-3.5 text-xs leading-relaxed text-emerald-900">
+                                    <strong className="font-semibold">
+                                        Akun langsung aktif.
+                                    </strong>{' '}
+                                    Setelah mendaftar, Anda bisa langsung masuk
+                                    dan melengkapi biodata untuk memulai
+                                    perjalanan perkaderan.
+                                </div>
+                            ) : (
+                                <div className="rounded-lg border border-amber-200 bg-amber-50 p-3.5 text-xs leading-relaxed text-amber-900">
+                                    <strong className="font-semibold">
+                                        Menunggu persetujuan.
+                                    </strong>{' '}
+                                    Akun {role === 'mentor' ? 'Mentor' : 'Fasilitator'}{' '}
+                                    akan diaktivasi oleh Administrator
+                                    komisariat sebelum dapat digunakan.
+                                </div>
+                            )}
 
                             <Button
                                 type="submit"
@@ -234,5 +251,5 @@ export default function Register({ passwordRules }: Props) {
 Register.layout = {
     title: 'Registrasi Perkaderan',
     description:
-        'Buat username dan kata sandi untuk mendaftar sebagai kader atau fasilitator.',
+        'Buat username dan kata sandi untuk mendaftar sebagai kader, fasilitator, atau mentor.',
 };

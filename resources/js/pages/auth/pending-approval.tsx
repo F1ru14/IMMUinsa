@@ -47,8 +47,8 @@ export default function PendingApproval({ roleLabel }: Props) {
                 </div>
 
                 <p className="rounded-lg border border-slate-200 bg-slate-50 p-3 text-xs leading-relaxed text-slate-500">
-                    Setelah akun Anda diverifikasi, Anda dapat mengisi biodata
-                    profil untuk melanjutkan proses perkaderan.
+                    Setelah akun Anda disetujui, Anda dapat melengkapi profil
+                    dan melanjutkan proses perkaderan.
                 </p>
 
                 <div className="flex items-center gap-3">

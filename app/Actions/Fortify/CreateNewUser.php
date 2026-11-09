@@ -40,7 +40,9 @@ class CreateNewUser implements CreatesNewUsers
             'username' => $username,
             'password' => $input['password'],
             'role' => $role,
-            'is_active' => false,
+            // Kader langsung aktif; Fasilitator dan Mentor menunggu
+            // persetujuan Administrator komisariat.
+            'is_active' => $role === Role::Kader,
         ]);
     }
 }

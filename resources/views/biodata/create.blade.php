@@ -17,13 +17,15 @@
             <li class="h-px flex-1 bg-brand/30"></li>
             <li class="flex items-center gap-2">
                 <span class="flex size-7 items-center justify-center rounded-full border-2 border-brand bg-brand-soft text-xs font-bold text-brand">{{ $currentStep }}</span>
-                <span class="text-xs font-bold text-slate-900">Biodata</span>
+                <span class="text-xs font-bold text-slate-900">Biodata &amp; Bidang</span>
             </li>
-            <li class="h-px flex-1 bg-slate-200"></li>
-            <li class="flex items-center gap-2">
-                <span class="flex size-7 items-center justify-center rounded-full border border-slate-300 text-xs font-bold text-slate-400">3</span>
-                <span class="text-xs font-medium text-slate-400">Fokus &amp; Pendamping</span>
-            </li>
+            @if($user->hasRole(\App\Enums\Role::Kader))
+                <li class="h-px flex-1 bg-slate-200"></li>
+                <li class="flex items-center gap-2">
+                    <span class="flex size-7 items-center justify-center rounded-full border border-slate-300 text-xs font-bold text-slate-400">3</span>
+                    <span class="text-xs font-medium text-slate-400">Fasilitator Pendamping</span>
+                </li>
+            @endif
         </ol>
     </div>
 
@@ -110,16 +112,35 @@
 
             <div class="border-t border-slate-100" role="presentation"></div>
 
-            {{-- Domisili --}}
+            {{-- Domisili & Bidang --}}
             <fieldset>
-                <legend class="mb-4 text-[11px] font-bold uppercase tracking-widest text-brand">Domisili &amp; Minat</legend>
+                <legend class="mb-4 text-[11px] font-bold uppercase tracking-widest text-brand">Domisili &amp; Bidang</legend>
 
                 <div class="space-y-5">
                     <div>
-                        <label for="expertise" class="mb-1.5 block text-sm font-semibold text-slate-700">
-                            Minat / Bidang Keahlian
+                        <label for="focus_area" class="mb-1.5 block text-sm font-semibold text-slate-700">
+                            Bidang / Rumpun Pergerakan <span class="text-red-600">*</span>
                         </label>
-                        <input type="text" id="expertise" name="expertise" value="{{ old('expertise') }}" placeholder="Contoh: Ideologi, Kaderisasi, Media, Jurnalistik"
+                        <select id="focus_area" name="focus_area" required
+                            class="block w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-none outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/30">
+                            <option value="">— Pilih Bidang —</option>
+                            @foreach(\App\Enums\FocusArea::cases() as $area)
+                                <option value="{{ $area->value }}" @selected(old('focus_area', $user->focus_area?->value) === $area->value)>
+                                    {{ $area->label() }}
+                                </option>
+                            @endforeach
+                        </select>
+                        <p class="mt-1.5 text-xs text-slate-500">
+                            Bidang ini menentukan rekomendasi fasilitator pendamping, mentor, dan modul tugas Anda.
+                        </p>
+                        @error('focus_area') <p class="mt-1 text-xs font-medium text-red-600">{{ $message }}</p> @enderror
+                    </div>
+
+                    <div>
+                        <label for="expertise" class="mb-1.5 block text-sm font-semibold text-slate-700">
+                            Keahlian Spesifik (Opsional)
+                        </label>
+                        <input type="text" id="expertise" name="expertise" value="{{ old('expertise', $user->biodata?->expertise) }}" placeholder="Contoh: Jurnalistik, Media, Riset"
                             class="block w-full rounded-lg border border-slate-300 px-3 py-2 text-sm shadow-none outline-none transition placeholder:text-slate-400 focus:border-brand focus:ring-2 focus:ring-brand/30">
                         @error('expertise') <p class="mt-1 text-xs font-medium text-red-600">{{ $message }}</p> @enderror
                     </div>
@@ -167,7 +188,11 @@
     </div>
 
     <p class="mt-6 text-center text-xs text-slate-400">
-        Langkah selanjutnya: pemilihan fokus rumpun dan fasilitator pendamping Anda.
+        @if($user->hasRole(\App\Enums\Role::Kader))
+            Langkah selanjutnya: pemilihan fasilitator pendamping sesuai bidang Anda.
+        @else
+            Setelah biodata disimpan, Anda dapat mengakses dashboard perkaderan.
+        @endif
     </p>
 </div>
 @endsection

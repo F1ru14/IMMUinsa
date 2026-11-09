@@ -219,6 +219,13 @@
     --color-gold: oklch(0.769 0.188 70.08);
     --color-gold-soft: oklch(0.987 0.022 95.277);
 
+    /*
+     * `color` di body sudah terlanjur dikunci ke warna tema gelap saat
+     * `<html>` memakai class `.dark`. Tanpa deklarasi ini, teks yang hanya
+     * mewarisi warna (mis. isi input) menjadi putih di atas latar putih.
+     */
+    color: var(--color-foreground);
+
     color-scheme: light;
 }
 

@@ -18,17 +18,19 @@ class EnsureBiodataCompleted
     {
         $user = $request->user();
 
-        if ($user && in_array($user->role, [Role::Fasilitator, Role::Kader], true)) {
-            if (! $user->is_active) {
-                if (! $request->routeIs('dashboard')) {
-                    return redirect()->route('dashboard')
-                        ->with('warning', 'Akun Anda masih menunggu persetujuan Administrator.');
-                }
-            } elseif (! $user->hasCompletedBiodata()) {
-                if (! $request->routeIs('biodata.*') && ! $request->routeIs('logout')) {
-                    return redirect()->route('biodata.create')
-                        ->with('warning', 'Please complete your biodata profile before accessing the dashboard.');
-                }
+        if (! $user || $user->hasRole(Role::Admin)) {
+            return $next($request);
+        }
+
+        if (! $user->is_active) {
+            if (! $request->routeIs('dashboard')) {
+                return redirect()->route('dashboard')
+                    ->with('warning', 'Akun Anda masih menunggu persetujuan Administrator.');
+            }
+        } elseif (in_array($user->role, [Role::Fasilitator, Role::Kader], true) && ! $user->hasCompletedBiodata()) {
+            if (! $request->routeIs('biodata.*') && ! $request->routeIs('logout')) {
+                return redirect()->route('biodata.create')
+                    ->with('warning', 'Please complete your biodata profile before accessing the dashboard.');
             }
         }
 

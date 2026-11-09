@@ -1,6 +1,5 @@
 import { Form, Head } from '@inertiajs/react';
 import InputError from '@/components/input-error';
-import PasskeyVerify from '@/components/passkey-verify';
 import PasswordInput from '@/components/password-input';
 import TextLink from '@/components/text-link';
 import { Button } from '@/components/ui/button';
@@ -21,12 +20,6 @@ export default function Login({ status, canResetPassword }: Props) {
     return (
         <>
             <Head title="Masuk" />
-
-            <PasskeyVerify
-                label="Masuk dengan passkey"
-                loadingLabel="Memverifikasi passkey…"
-                separator="atau masuk dengan username"
-            />
 
             {status && (
                 <div className="mb-5 rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-2 text-sm font-medium text-emerald-800">
@@ -58,7 +51,7 @@ export default function Login({ status, canResetPassword }: Props) {
                                     tabIndex={1}
                                     autoComplete="username"
                                     placeholder="username"
-                                    className="h-10 border-slate-300 bg-white shadow-none focus-visible:border-brand focus-visible:ring-brand/25"
+                                    className="h-10 border-slate-300 bg-white text-slate-900 shadow-none focus-visible:border-brand focus-visible:ring-brand/25"
                                 />
                                 <InputError message={errors.username} />
                             </div>
@@ -88,7 +81,7 @@ export default function Login({ status, canResetPassword }: Props) {
                                     tabIndex={2}
                                     autoComplete="current-password"
                                     placeholder="Kata sandi"
-                                    className="h-10 border-slate-300 bg-white shadow-none focus-visible:border-brand focus-visible:ring-brand/25"
+                                    className="h-10 border-slate-300 bg-white text-slate-900 shadow-none focus-visible:border-brand focus-visible:ring-brand/25"
                                 />
                                 <InputError message={errors.password} />
                             </div>

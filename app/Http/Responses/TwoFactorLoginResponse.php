@@ -9,8 +9,5 @@ class TwoFactorLoginResponse extends BaseTwoFactorLoginResponse
 {
     use RedirectsInertiaVisits;
 
-    /**
-     * The Fortify redirect name used to resolve the default destination.
-     */
     protected string $redirectName = 'login';
 }

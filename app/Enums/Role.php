@@ -27,8 +27,9 @@ enum Role: string
     public static function publicRoles(): array
     {
         return [
-            self::Fasilitator->value,
             self::Kader->value,
+            self::Fasilitator->value,
+            self::Mentor->value,
         ];
     }
 }

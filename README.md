@@ -1,6 +1,6 @@
-# IMM UINSA - Sistem Manajemen Perkaderan
+# Platform Digital Perkaderan IMM UINSA
 
-Sistem informasi perkaderan Ikatan Mahasiswa Muhammadiyah (IMM) berbasis Laravel dengan sistem otentikasi multi-peran (_Role-Based Access Control_), alur persetujuan aktivasi akun, onboarding pengisian biodata wajib, dan dashboard terdedikasi untuk masing-masing peran.
+Platform Digital Perkaderan Ikatan Mahasiswa Muhammadiyah (IMM) berbasis Laravel dengan sistem otentikasi multi-peran (_Role-Based Access Control_), alur persetujuan aktivasi akun, onboarding pengisian biodata wajib, dan dashboard terdedikasi untuk masing-masing peran.
 
 > 📖 **Dokumentasi Terkait:** Untuk memahami latar belakang, 4 pilar pergerakan, aturan validasi, dan diagram alur bisnis lengkap, silakan baca [**Panduan Proses Bisnis (BUSINESS.md)**](BUSINESS.md).
 
@@ -14,9 +14,10 @@ Sistem informasi perkaderan Ikatan Mahasiswa Muhammadiyah (IMM) berbasis Laravel
     - **Fasilitator:** Pendampingan kelompok kader binaan, pemeriksaan tugas, dan laporan berkala.
     - **Kader:** Pengisian biodata, akses modul materi, dan pengumpulan tugas perkaderan.
 - **Registrasi Publik Terbatas:**
-    - Registrasi publik hanya diizinkan untuk peran **Kader** dan **Fasilitator**.
-    - Akun yang baru mendaftar secara default berstatus `is_active = false` (menunggu persetujuan/aktivasi Admin).
-    - Akun Admin dan Mentor di-generate secara eksklusif via seeder / panel Admin.
+    - Registrasi publik hanya diizinkan untuk peran **Kader**, **Fasilitator**, dan **Mentor**.
+    - Akun **Kader** langsung aktif (`is_active = true`) setelah mendaftar.
+    - Akun **Fasilitator** dan **Mentor** berstatus `is_active = false` (menunggu persetujuan/aktivasi Admin).
+    - Akun **Admin** hanya dibuat secara eksklusif via seeder / panel Admin.
 - **Onboarding Biodata Wajib (Middleware Enforced):**
     - Fasilitator dan Kader yang login pertama kali otomatis diarahkan ke halaman `/biodata/complete`.
     - Akses dashboard dikunci sampai biodata lengkap diserahkan.
@@ -130,7 +131,7 @@ Setelah menjalankan `php artisan migrate --seed`, Anda dapat langsung masuk meng
 | **Mentor (Pengabdi)**      | `mentor_pengabdi`      | `password` | Aktif (Mentor persyarikatan)                                           |
 | **Fasilitator (4 Bidang)** | `fasilitator_[bidang]` | `password` | Aktif (`entrepreneur`, `politisi`, `akademisi`, `pengabdi`)            |
 
-> Untuk menguji peran **Kader** atau **Fasilitator**, Anda dapat melakukan registrasi baru melalui menu **Register**, kemudian Admin dapat mengaktifkannya di database atau dashboard.
+> Untuk menguji peran **Kader**, **Fasilitator**, atau **Mentor**, Anda dapat melakukan registrasi baru melalui menu **Register**. Akun **Kader langsung aktif**, sedangkan akun **Fasilitator** dan **Mentor** menunggu persetujuan Admin. Admin dapat menyetujui atau menolak pendaftaran langsung dari **Admin Dashboard → Menunggu Persetujuan**.
 
 ---
 

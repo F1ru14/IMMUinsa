@@ -41,6 +41,14 @@ test('inactive user cannot access biodata onboarding before approval', function 
     $response->assertRedirect(route('dashboard', absolute: false));
 });
 
+test('inactive mentor cannot access mentor dashboard before approval', function () {
+    $pendingMentor = User::factory()->mentor()->pending()->create();
+
+    $response = $this->actingAs($pendingMentor)->get(route('mentor.dashboard'));
+
+    $response->assertRedirect(route('dashboard', absolute: false));
+});
+
 test('mentor can access mentor dashboard', function () {
     $mentor = User::factory()->mentor()->create();
 

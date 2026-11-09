@@ -55,7 +55,7 @@
             </div>
             <div class="min-w-0 leading-tight">
                 <p class="text-sm font-bold text-white tracking-wide">IMM UINSA</p>
-                <p class="text-[11px] text-slate-400">Sistem Perkaderan</p>
+                <p class="text-[11px] text-slate-400">Platform Digital Perkaderan</p>
             </div>
         </div>
 
@@ -200,7 +200,7 @@
 
         <footer class="border-t border-slate-200 py-6 dark:border-slate-800">
             <p class="text-center text-xs text-slate-400">
-                {{ config('app.name') }} — Sistem Informasi Perkaderan Ikatan Mahasiswa Muhammadiyah UIN Sunan Ampel Surabaya
+                {{ config('app.name') }} — Platform Digital Perkaderan Ikatan Mahasiswa Muhammadiyah UIN Sunan Ampel Surabaya
             </p>
         </footer>
     </div>

@@ -58,7 +58,7 @@ export default function LandingFooter() {
                                     {name}
                                 </p>
                                 <p className="text-[10px] font-semibold tracking-[0.2em] text-amber-300/80 uppercase">
-                                    Sistem Perkaderan
+                                    Platform Digital Perkaderan
                                 </p>
                             </div>
                         </div>
@@ -157,7 +157,7 @@ export default function LandingFooter() {
                         © {year} {name}.
                     </p>
                     <p className="text-[10px] font-semibold tracking-[0.2em] text-amber-300/60 uppercase">
-                        Sistem Informasi Perkaderan IMM UINSA
+                        Platform Digital Perkaderan IMM UINSA
                     </p>
                     <button
                         type="button"
