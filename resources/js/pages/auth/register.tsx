@@ -218,7 +218,10 @@ export default function Register({ passwordRules }: Props) {
                                     <strong className="font-semibold">
                                         Menunggu persetujuan.
                                     </strong>{' '}
-                                    Akun {role === 'mentor' ? 'Mentor' : 'Fasilitator'}{' '}
+                                    Akun{' '}
+                                    {role === 'mentor'
+                                        ? 'Mentor'
+                                        : 'Fasilitator'}{' '}
                                     akan diaktivasi oleh Administrator
                                     komisariat sebelum dapat digunakan.
                                 </div>

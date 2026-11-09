@@ -146,9 +146,7 @@ export default function Welcome() {
                                         size="sm"
                                         className="rounded-lg px-4 py-2 text-sm font-semibold text-white/80 transition hover:text-amber-300"
                                     >
-                                        <Link href={register()}>
-                                            Daftar
-                                        </Link>
+                                        <Link href={register()}>Daftar</Link>
                                     </Button>
                                 </>
                             )}
@@ -198,9 +196,7 @@ export default function Welcome() {
                                         size="lg"
                                         className="bg-amber-400 font-bold text-slate-900 hover:bg-amber-300"
                                     >
-                                        <Link href={register()}>
-                                            Daftar
-                                        </Link>
+                                        <Link href={register()}>Daftar</Link>
                                     </Button>
                                     <Button
                                         asChild
