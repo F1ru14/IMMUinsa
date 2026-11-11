@@ -56,6 +56,7 @@ Route::middleware(['auth'])->group(function (): void {
         Route::post('/select-fasilitator', [KaderJourneyController::class, 'saveFasilitator'])->name('fasilitator.store');
 
         // Step 3: Pengumpulan / Penyelesaian Task (Minimal 3)
+        Route::get('/tasks', [KaderJourneyController::class, 'showTasks'])->name('tasks.index');
         Route::post('/tasks/{task}/submit', [KaderJourneyController::class, 'submitTask'])->name('tasks.submit');
 
         // Step 4: Unlock & Pilih Mentor

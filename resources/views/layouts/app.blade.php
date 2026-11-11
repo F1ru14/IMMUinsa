@@ -27,9 +27,13 @@
         ],
         'kader' => [
             'Dashboard' => ['route' => 'dashboard', 'active' => 'dashboard'],
-            'Fokus Bidang' => ['route' => 'kader.focus-area.create', 'active' => 'kader.focus-area.*'],
-            'Pilih Fasilitator' => ['route' => 'kader.fasilitator.create', 'active' => 'kader.fasilitator.*'],
-            'Pilih Mentor' => ['route' => 'kader.mentor.create', 'active' => 'kader.mentor.*'],
+            'Penugasan' => ['route' => 'kader.tasks.index', 'active' => 'kader.tasks.*'],
+            'Mentor' => [
+                'route' => 'kader.mentor.create',
+                'active' => 'kader.mentor.*',
+                'locked' => ! $user->canSelectMentor(),
+            ],
+            'Profil' => ['route' => 'profile.edit', 'active' => 'profile.*'],
         ],
         default => [],
     };
@@ -64,14 +68,22 @@
             <nav class="flex-1 space-y-1 overflow-y-auto px-3 py-5">
                 <p class="px-3 pb-2 text-[11px] font-bold uppercase tracking-widest text-slate-500">Menu Utama</p>
                 @foreach($navigation as $label => $item)
-                    @php $isActive = request()->routeIs($item['active']); @endphp
+                    @php
+                        $isActive = request()->routeIs($item['active']);
+                        $isLocked = $item['locked'] ?? false;
+                    @endphp
                     <a href="{{ route($item['route']) }}"
+                       title="{{ $isLocked ? 'Terkunci — selesaikan minimal 3 tugas' : '' }}"
                        class="group flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition
                               {{ $isActive
                                   ? 'bg-brand/20 text-white ring-1 ring-brand/40'
                                   : 'text-slate-400 hover:bg-white/5 hover:text-slate-100' }}">
                         <span class="size-1.5 rounded-full {{ $isActive ? 'bg-gold' : 'bg-slate-600 group-hover:bg-slate-400' }}"></span>
                         {{ $label }}
+                        @if($isLocked)
+                            <svg class="ml-auto size-3.5 shrink-0 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2Zm10-10V7a4 4 0 1 0-8 0v4"/></svg>
+                            <span class="sr-only">Terkunci</span>
+                        @endif
                     </a>
                 @endforeach
             </nav>
@@ -118,12 +130,20 @@
                 <nav class="flex-1 space-y-1 overflow-y-auto px-3 py-5">
                     <p class="px-3 pb-2 text-[11px] font-bold uppercase tracking-widest text-slate-500">Menu Utama</p>
                     @foreach($navigation as $label => $item)
-                        @php $isActive = request()->routeIs($item['active']); @endphp
+                        @php
+                            $isActive = request()->routeIs($item['active']);
+                            $isLocked = $item['locked'] ?? false;
+                        @endphp
                         <a href="{{ route($item['route']) }}"
+                           title="{{ $isLocked ? 'Terkunci — selesaikan minimal 3 tugas' : '' }}"
                            class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition
                                   {{ $isActive ? 'bg-brand/20 text-white ring-1 ring-brand/40' : 'text-slate-400 hover:bg-white/5 hover:text-slate-100' }}">
                             <span class="size-1.5 rounded-full {{ $isActive ? 'bg-gold' : 'bg-slate-600' }}"></span>
                             {{ $label }}
+                            @if($isLocked)
+                                <svg class="ml-auto size-3.5 shrink-0 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2Zm10-10V7a4 4 0 1 0-8 0v4"/></svg>
+                                <span class="sr-only">Terkunci</span>
+                            @endif
                         </a>
                     @endforeach
                 </nav>

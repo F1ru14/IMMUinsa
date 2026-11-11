@@ -93,7 +93,7 @@
     <!-- User Management Section -->
     <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
         <div class="flex items-center justify-between mb-4">
-            <h2 class="text-lg font-bold text-gray-900">Daftar Pengguna Terbaru</h2>
+            <h2 class="text-lg font-bold text-gray-900">Daftar Pengguna</h2>
         </div>
         <div class="overflow-x-auto">
             <table class="min-w-full divide-y divide-gray-200 text-sm">

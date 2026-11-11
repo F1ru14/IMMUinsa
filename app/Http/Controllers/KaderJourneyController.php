@@ -90,6 +90,37 @@ class KaderJourneyController extends Controller
     }
 
     /**
+     * Show the kader's task list.
+     */
+    public function showTasks(Request $request): View|RedirectResponse
+    {
+        $user = $request->user();
+
+        if (! $user->hasSelectedFocusArea()) {
+            return redirect()->route('kader.focus-area.create')
+                ->with('warning', 'Harap pilih fokus bidang perkaderan terlebih dahulu.');
+        }
+
+        if (! $user->hasSelectedFasilitator()) {
+            return redirect()->route('kader.fasilitator.create')
+                ->with('warning', 'Harap pilih fasilitator pendamping terlebih dahulu.');
+        }
+
+        $tasks = Task::where('focus_area', $user->focus_area)
+            ->orderBy('order')
+            ->get();
+
+        $completedTaskIds = $user->completedTasks()->pluck('task_id')->toArray();
+
+        return view('kader.tasks', [
+            'user' => $user,
+            'tasks' => $tasks,
+            'completedTaskIds' => $completedTaskIds,
+            'completedCount' => count($completedTaskIds),
+        ]);
+    }
+
+    /**
      * Submit or complete a task.
      */
     public function submitTask(Request $request, Task $task): RedirectResponse
@@ -115,13 +146,13 @@ class KaderJourneyController extends Controller
         $completedCount = $user->fresh()->completedTasksCount();
 
         if ($completedCount >= 3) {
-            return redirect()->route('kader.dashboard')
+            return redirect()->route('kader.tasks.index')
                 ->with('status', '🎉 Selamat! Anda telah menyelesaikan 3 tugas perkaderan. Pemilihan Mentor kini TELAH TERBUKA!');
         }
 
         $remaining = 3 - $completedCount;
 
-        return redirect()->route('kader.dashboard')
+        return redirect()->route('kader.tasks.index')
             ->with('status', "Tugas berhasil diselesaikan! Selesaikan {$remaining} tugas lagi untuk membuka pilihan Mentor.");
     }
 

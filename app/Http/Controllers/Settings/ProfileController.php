@@ -9,18 +9,17 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
-use Inertia\Inertia;
-use Inertia\Response;
+use Illuminate\View\View;
 
 class ProfileController extends Controller
 {
     /**
      * Show the user's profile settings page.
      */
-    public function edit(Request $request): Response
+    public function edit(Request $request): View
     {
-        return Inertia::render('settings/profile', [
-            'status' => $request->session()->get('status'),
+        return view('profile.edit', [
+            'user' => $request->user(),
         ]);
     }
 
@@ -35,9 +34,8 @@ class ProfileController extends Controller
         $user->username = Str::lower($user->username);
         $user->save();
 
-        Inertia::flash('toast', ['type' => 'success', 'message' => __('Profile updated.')]);
-
-        return to_route('profile.edit');
+        return to_route('profile.edit')
+            ->with('status', 'Profil berhasil diperbarui.');
     }
 
     /**

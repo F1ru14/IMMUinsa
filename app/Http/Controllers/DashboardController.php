@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Enums\Role;
-use App\Models\Task;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -55,7 +54,6 @@ class DashboardController extends Controller
             'recentUsers' => User::query()
                 ->with('biodata')
                 ->latest()
-                ->take(10)
                 ->get(),
         ]);
     }
@@ -142,18 +140,12 @@ class DashboardController extends Controller
                 ->with('warning', 'Harap pilih fasilitator pendamping terlebih dahulu.');
         }
 
-        $tasks = Task::where('focus_area', $user->focus_area)
-            ->orderBy('order')
-            ->get();
-
-        $completedTaskIds = $user->completedTasks()->pluck('task_id')->toArray();
+        $completedCount = $user->completedTasksCount();
 
         return view('dashboards.kader', [
             'user' => $user->load(['fasilitator.biodata', 'mentor.biodata', 'biodata', 'evaluationsReceived.fasilitator']),
-            'tasks' => $tasks,
-            'completedTaskIds' => $completedTaskIds,
-            'completedCount' => count($completedTaskIds),
-            'canSelectMentor' => count($completedTaskIds) >= 3,
+            'completedCount' => $completedCount,
+            'canSelectMentor' => $completedCount >= 3,
         ]);
     }
 }

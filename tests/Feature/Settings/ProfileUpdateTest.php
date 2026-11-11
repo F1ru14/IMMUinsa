@@ -10,6 +10,7 @@ test('profile page is displayed', function () {
         ->get(route('profile.edit'));
 
     $response->assertOk();
+    $response->assertSee('Profil Saya');
 });
 
 test('profile information can be updated', function () {

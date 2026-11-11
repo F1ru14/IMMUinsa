@@ -103,6 +103,30 @@ test('each focus area is seeded with two fasilitators and two mentors', function
     }
 });
 
+test('kader can view the penugasan page and submit a task from it', function () {
+    $fasilitator = User::where('role', 'fasilitator')->where('focus_area', FocusArea::Entrepreneur->value)->first();
+
+    $kader = User::factory()->kader()->withBiodata()->create([
+        'focus_area' => FocusArea::Entrepreneur,
+        'fasilitator_id' => $fasilitator->id,
+    ]);
+
+    $task = Task::where('focus_area', FocusArea::Entrepreneur)->orderBy('order')->first();
+
+    $this->actingAs($kader)->get(route('kader.tasks.index'))
+        ->assertOk()
+        ->assertSee($task->title);
+
+    $this->actingAs($kader)->post(route('kader.tasks.submit', $task))
+        ->assertRedirect(route('kader.tasks.index'));
+
+    expect($kader->fresh()->hasCompletedTask($task->id))->toBeTrue();
+
+    $this->actingAs($kader)->get(route('kader.dashboard'))
+        ->assertOk()
+        ->assertDontSee($task->title);
+});
+
 test('kader can select mentor after unlocking and see mentor on dashboard', function () {
     $fasilitator = User::where('role', 'fasilitator')->where('focus_area', FocusArea::Entrepreneur->value)->first();
     $mentor = User::where('role', 'mentor')->where('focus_area', FocusArea::Entrepreneur->value)->first();

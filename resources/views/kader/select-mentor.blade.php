@@ -58,10 +58,6 @@
             @endforeach
         </div>
     @endif
-
-    <div class="mt-8 text-center">
-        <x-back-button :fallback="route('kader.dashboard')" />
-    </div>
 </div>
 @endsection
 

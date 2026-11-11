@@ -13,6 +13,18 @@ test('admin dashboard lists users waiting for approval', function () {
     $response->assertSee('Calon Mentor Senior');
 });
 
+test('admin dashboard lists kader beyond the ten most recent users', function () {
+    $admin = User::factory()->admin()->create();
+    User::factory()->kader()->create(['name' => 'Kader Lama']);
+
+    User::factory()->mentor()->count(11)->create();
+
+    $response = $this->actingAs($admin)->get(route('admin.dashboard'));
+
+    $response->assertOk();
+    $response->assertSee('Kader Lama');
+});
+
 test('admin can approve a pending user', function () {
     $admin = User::factory()->admin()->create();
     $pending = User::factory()->fasilitator()->pending()->create();
