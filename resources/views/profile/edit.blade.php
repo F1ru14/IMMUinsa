@@ -8,9 +8,30 @@
     </div>
 
     <div class="bg-white p-6 sm:p-8 rounded-2xl border border-gray-200 shadow-sm">
-        <form action="{{ route('profile.update') }}" method="POST" class="space-y-5">
+        <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data" class="space-y-5">
             @csrf
             @method('patch')
+
+            @if($user->biodata)
+                <div class="flex flex-col sm:flex-row sm:items-center gap-4">
+                    @if($user->biodata->avatar)
+                        <img src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($user->biodata->avatar) }}"
+                            alt="Foto profil {{ $user->name }}" class="size-20 rounded-full object-cover border border-slate-200 shrink-0">
+                    @else
+                        <div class="flex size-20 items-center justify-center rounded-full bg-brand text-2xl font-bold text-white shrink-0">
+                            {{ strtoupper(substr($user->name, 0, 1)) }}
+                        </div>
+                    @endif
+
+                    <div class="flex-1">
+                        <label for="avatar" class="mb-1.5 block text-sm font-semibold text-slate-700">Ganti Foto Profil</label>
+                        <input type="file" id="avatar" name="avatar" accept="image/*"
+                            class="block w-full rounded-lg border border-dashed border-slate-300 px-3 py-2.5 text-sm text-slate-500 shadow-none outline-none transition file:mr-4 file:rounded-md file:border-0 file:border-b-2 file:border-amber-400 file:bg-brand/5 file:px-4 file:py-2 file:text-xs file:font-bold file:uppercase file:tracking-wide file:text-brand hover:border-brand/50 hover:file:bg-brand/10">
+                        <p class="mt-1.5 text-xs text-slate-400">Format JPG, PNG, atau WEBP. Ukuran maksimal 2MB.</p>
+                        @error('avatar') <p class="mt-1 text-xs font-medium text-red-600">{{ $message }}</p> @enderror
+                    </div>
+                </div>
+            @endif
 
             <div>
                 <label for="name" class="mb-1.5 block text-sm font-semibold text-slate-700">

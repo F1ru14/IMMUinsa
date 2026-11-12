@@ -216,11 +216,7 @@ export default function Welcome() {
                                 <span className="text-[11px] font-bold tracking-[0.25em] text-amber-300/80 uppercase">
                                     UIN Sunan Ampel Surabaya
                                 </span>
-                                <div className="mt-6 flex size-28 items-center justify-center rounded-full border border-amber-300/30 bg-white/5">
-                                    <div className="flex size-20 items-center justify-center rounded-full bg-gold p-4">
-                                        <BrandLogo className="size-full" />
-                                    </div>
-                                </div>
+                                <BrandLogo className="mt-6 size-24" />
                                 <p className="mt-6 text-sm font-semibold text-white">
                                     Logo Resmi Komisariat
                                 </p>

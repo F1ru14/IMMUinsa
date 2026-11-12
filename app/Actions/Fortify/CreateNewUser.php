@@ -34,8 +34,8 @@ class CreateNewUser implements CreatesNewUsers
         $role = isset($input['role']) ? Role::from($input['role']) : Role::Kader;
 
         return User::create([
-            // Nama tampilan sementara memakai username; akan disinkronkan
-            // dengan nama lengkap saat kader mengisi biodata.
+            // Nama tampilan memakai username; nama lengkap hanya disimpan
+            // pada tabel biodata saat pengisian biodata.
             'name' => $username,
             'username' => $username,
             'password' => $input['password'],

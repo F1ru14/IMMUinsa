@@ -28,9 +28,7 @@ export default function AuthSimpleLayout({
                     href={home()}
                     className="relative z-10 flex items-center gap-3"
                 >
-                    <div className="flex size-9 items-center justify-center rounded-md bg-gold p-1.5">
-                        <BrandLogo className="size-full" />
-                    </div>
+                    <BrandLogo className="size-10 shrink-0" />
                     <div className="leading-tight">
                         <p className="text-sm font-bold tracking-wide">
                             {name}

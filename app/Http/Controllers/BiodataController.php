@@ -72,7 +72,6 @@ class BiodataController extends Controller
             $focusArea = Interest::determineFocusArea($validated['interests']);
 
             $user->update([
-                'name' => $validated['full_name'],
                 'interests' => $validated['interests'],
                 'focus_area' => $focusArea,
             ]);
@@ -98,7 +97,6 @@ class BiodataController extends Controller
             }
         } else {
             $user->update([
-                'name' => $validated['full_name'],
                 'focus_area' => FocusArea::from($validated['focus_area']),
             ]);
         }

@@ -1,6 +1,8 @@
 <?php
 
 use App\Models\User;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 
 test('profile page is displayed', function () {
     $user = User::factory()->create();
@@ -94,4 +96,30 @@ test('correct password must be provided to delete account', function () {
         ->assertRedirect(route('profile.edit'));
 
     expect($user->fresh())->not->toBeNull();
+});
+
+test('profile photo can be updated and the old file is removed', function () {
+    Storage::fake('public');
+
+    $user = User::factory()->withBiodata()->create();
+    $oldPath = UploadedFile::fake()->image('old.jpg')->store('avatars', 'public');
+    $user->biodata->update(['avatar' => $oldPath]);
+
+    $response = $this
+        ->actingAs($user)
+        ->patch(route('profile.update'), [
+            'name' => $user->name,
+            'username' => $user->username,
+            'avatar' => UploadedFile::fake()->image('new.jpg'),
+        ]);
+
+    $response
+        ->assertSessionHasNoErrors()
+        ->assertRedirect(route('profile.edit'));
+
+    $newPath = $user->fresh()->biodata->avatar;
+
+    expect($newPath)->not->toBeNull();
+    Storage::disk('public')->assertExists($newPath);
+    Storage::disk('public')->assertMissing($oldPath);
 });

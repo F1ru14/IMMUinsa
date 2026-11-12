@@ -47,7 +47,7 @@ test('kader can submit biodata successfully and proceeds to choose fasilitator',
     ]);
 
     expect($kader->fresh()->hasCompletedBiodata())->toBeTrue()
-        ->and($kader->fresh()->name)->toBe('Ahmad Dahlan')
+        ->and($kader->fresh()->name)->toBe($kader->name)
         ->and($kader->fresh()->focus_area)->toBe(FocusArea::Entrepreneur)
         ->and($kader->fresh()->interests)->toBe([Interest::UsahaDanUmkm->value]);
 });
@@ -237,7 +237,7 @@ test('kader can update an existing biodata', function () {
 
     $response->assertRedirect(route('dashboard'));
 
-    expect($kader->fresh()->name)->toBe('Nama Baru')
+    expect($kader->fresh()->name)->toBe($kader->name)
         ->and($kader->fresh()->biodata->phone_number)->toBe('081298765432')
         ->and($kader->fresh()->biodata->address)->toBe('Alamat Baru');
 });

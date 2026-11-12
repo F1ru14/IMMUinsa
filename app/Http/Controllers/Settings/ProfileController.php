@@ -8,6 +8,7 @@ use App\Http\Requests\Settings\ProfileUpdateRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
 
@@ -30,9 +31,23 @@ class ProfileController extends Controller
     {
         $user = $request->user();
 
-        $user->fill($request->validated());
+        $validated = $request->validated();
+        $avatar = $validated['avatar'] ?? null;
+        unset($validated['avatar']);
+
+        $user->fill($validated);
         $user->username = Str::lower($user->username);
         $user->save();
+
+        if ($avatar && $user->biodata) {
+            if ($user->biodata->avatar) {
+                Storage::disk('public')->delete($user->biodata->avatar);
+            }
+
+            $user->biodata->update([
+                'avatar' => $avatar->store('avatars', 'public'),
+            ]);
+        }
 
         return to_route('profile.edit')
             ->with('status', 'Profil berhasil diperbarui.');

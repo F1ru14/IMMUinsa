@@ -146,20 +146,20 @@ Buka browser dan akses aplikasi di: **[http://localhost:8000](http://localhost:8
 
 Setelah menjalankan `php artisan migrate --seed`, Anda dapat langsung masuk menggunakan **username** dan password berikut. Seluruh akun bawaan menggunakan password: `password`.
 
-| Peran / Kelompok                   | Username                                                              | Status / Keterangan                                            |
-| :--------------------------------- | :-------------------------------------------------------------------- | :------------------------------------------------------------- |
-| **Admin**                          | `admin`                                                               | Aktif (pengelola sistem)                                       |
-| **Akun Uji Factory**               | `test`                                                                | Aktif sebagai Admin (dibuat oleh `DatabaseSeeder`)             |
-| **Mentor Umum**                    | `mentor`                                                              | Aktif                                                          |
-| **Kader (Uji Coba Flow)**          | `kader`                                                               | Aktif, **belum mengisi biodata** 👈 _cocok untuk mencoba alur_ |
-| **Fasilitator — Entrepreneur**     | `fasilitator_entrepreneur`, `fasilitator_entrepreneur_2`              | Aktif, sudah memiliki biodata                                  |
-| **Fasilitator — Politisi**         | `fasilitator_politisi`, `fasilitator_politisi_2`                      | Aktif, sudah memiliki biodata                                  |
-| **Fasilitator — Akademisi**        | `fasilitator_akademisi`, `fasilitator_akademisi_2`                    | Aktif, sudah memiliki biodata                                  |
-| **Fasilitator — Pengabdi**         | `fasilitator_pengabdi`, `fasilitator_pengabdi_2`                      | Aktif, sudah memiliki biodata                                  |
-| **Mentor — Entrepreneur**          | `mentor_entrepreneur`, `mentor_entrepreneur_2`                        | Aktif, sudah memiliki biodata                                  |
-| **Mentor — Politisi**              | `mentor_politisi`, `mentor_politisi_2`                                | Aktif, sudah memiliki biodata                                  |
-| **Mentor — Akademisi**             | `mentor_akademisi`, `mentor_akademisi_2`                              | Aktif, sudah memiliki biodata                                  |
-| **Mentor — Pengabdi**              | `mentor_pengabdi`, `mentor_pengabdi_2`                                | Aktif, sudah memiliki biodata                                  |
+| Peran / Kelompok               | Username                                                 | Status / Keterangan                                            |
+| :----------------------------- | :------------------------------------------------------- | :------------------------------------------------------------- |
+| **Admin**                      | `admin`                                                  | Aktif (pengelola sistem)                                       |
+| **Akun Uji Factory**           | `test`                                                   | Aktif sebagai Admin (dibuat oleh `DatabaseSeeder`)             |
+| **Mentor Umum**                | `mentor`                                                 | Aktif                                                          |
+| **Kader (Uji Coba Flow)**      | `kader`                                                  | Aktif, **belum mengisi biodata** 👈 _cocok untuk mencoba alur_ |
+| **Fasilitator — Entrepreneur** | `fasilitator_entrepreneur`, `fasilitator_entrepreneur_2` | Aktif, sudah memiliki biodata                                  |
+| **Fasilitator — Politisi**     | `fasilitator_politisi`, `fasilitator_politisi_2`         | Aktif, sudah memiliki biodata                                  |
+| **Fasilitator — Akademisi**    | `fasilitator_akademisi`, `fasilitator_akademisi_2`       | Aktif, sudah memiliki biodata                                  |
+| **Fasilitator — Pengabdi**     | `fasilitator_pengabdi`, `fasilitator_pengabdi_2`         | Aktif, sudah memiliki biodata                                  |
+| **Mentor — Entrepreneur**      | `mentor_entrepreneur`, `mentor_entrepreneur_2`           | Aktif, sudah memiliki biodata                                  |
+| **Mentor — Politisi**          | `mentor_politisi`, `mentor_politisi_2`                   | Aktif, sudah memiliki biodata                                  |
+| **Mentor — Akademisi**         | `mentor_akademisi`, `mentor_akademisi_2`                 | Aktif, sudah memiliki biodata                                  |
+| **Mentor — Pengabdi**          | `mentor_pengabdi`, `mentor_pengabdi_2`                   | Aktif, sudah memiliki biodata                                  |
 
 > Untuk menguji peran **Kader**, **Fasilitator**, atau **Mentor**, Anda juga dapat melakukan registrasi baru melalui menu **Register**. Akun **Kader langsung aktif**, sedangkan akun **Fasilitator** dan **Mentor** menunggu persetujuan Admin. Admin dapat menyetujui atau menolak pendaftaran melalui **Admin Dashboard → Menunggu Persetujuan**.
 
