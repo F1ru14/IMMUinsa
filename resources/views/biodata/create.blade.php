@@ -11,7 +11,7 @@
     <div class="mx-auto max-w-3xl">
 
     {{-- Notice: mengapa biodata wajib --}}
-    <div class="mb-6 rounded-xl border border-brand/20 bg-brand-soft p-4">
+    <div class="mb-6 rounded-lg border border-brand/20 bg-brand-soft p-4">
         <div class="flex gap-3">
             <svg class="mt-0.5 size-5 shrink-0 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
@@ -23,7 +23,7 @@
         </div>
     </div>
 
-    <div class="overflow-hidden rounded-xl border border-slate-200 bg-white">
+    <div class="overflow-hidden rounded-lg border border-slate-200 bg-white">
         <div class="border-b border-slate-100 bg-slate-50 px-6 py-4">
             <p class="text-sm font-bold text-slate-900">Formulir Data Pokok Kader</p>
             <p class="mt-0.5 text-xs text-slate-500">Seluruh data tersimpan aman dan hanya dibaca oleh fasilitator &amp; admin komisariat.</p>
@@ -33,7 +33,7 @@
 
             {{-- Data diri --}}
             <fieldset>
-                <legend class="mb-4 text-[11px] font-bold uppercase tracking-widest text-brand">Data Diri</legend>
+                <legend class="mb-4 text-xs font-semibold tracking-wide text-brand uppercase">Data Diri</legend>
 
                 <div class="space-y-5">
                     <div>
@@ -100,7 +100,7 @@
 
             {{-- Domisili & Bidang --}}
             <fieldset>
-                <legend class="mb-4 text-[11px] font-bold uppercase tracking-widest text-brand">Domisili &amp; Bidang</legend>
+                <legend class="mb-4 text-xs font-semibold tracking-wide text-brand uppercase">Domisili &amp; Bidang</legend>
 
                 <div class="space-y-5">
                     <div>
@@ -173,12 +173,12 @@
 
             {{-- Foto --}}
             <fieldset>
-                <legend class="mb-4 text-[11px] font-bold uppercase tracking-widest text-brand">Foto Profil</legend>
+                <legend class="mb-4 text-xs font-semibold tracking-wide text-brand uppercase">Foto Profil</legend>
 
                 <div>
                     <label for="avatar" class="mb-1.5 block text-sm font-semibold text-slate-700">Foto Profil (Opsional)</label>
                     <input type="file" id="avatar" name="avatar" accept="image/*"
-                        class="block w-full rounded-lg border border-dashed border-slate-300 px-3 py-2.5 text-sm text-slate-500 shadow-none outline-none transition file:mr-4 file:rounded-md file:border-0 file:border-b-2 file:border-amber-400 file:bg-brand/5 file:px-4 file:py-2 file:text-xs file:font-bold file:uppercase file:tracking-wide file:text-brand hover:border-brand/50 hover:file:bg-brand/10">
+                        class="block w-full rounded-lg border border-dashed border-slate-300 px-3 py-2.5 text-sm text-slate-500 file:mr-3 file:rounded-md file:border-0 file:bg-slate-100 file:px-3 file:py-1.5 file:text-xs file:font-semibold file:text-slate-700 hover:border-brand/50 hover:file:bg-slate-200">
                     <p class="mt-1.5 text-xs text-slate-400">Format JPG, PNG, atau WEBP. Ukuran maksimal 2MB.</p>
                     @error('avatar') <p class="mt-1 text-xs font-medium text-red-600">{{ $message }}</p> @enderror
                 </div>
@@ -190,11 +190,8 @@
                     <span class="text-red-600">*</span> Wajib diisi
                 </p>
                 <button type="submit"
-                    class="group inline-flex items-center gap-2 rounded-lg border-b-2 border-transparent bg-brand px-6 py-2.5 text-sm font-bold text-white transition hover:border-amber-400 hover:bg-brand-dark focus:outline-none focus:ring-2 focus:ring-brand/40 focus:ring-offset-2">
-                    {{ $user->biodata ? 'Simpan Perubahan' : 'Simpan Biodata & Lanjutkan' }}
-                    <svg class="size-4 transition group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5-5 5M6 12h11"/>
-                    </svg>
+                    class="rounded-md bg-brand px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-dark focus:outline-none focus:ring-2 focus:ring-brand/40 focus:ring-offset-2">
+                    {{ $user->biodata ? 'Simpan perubahan' : 'Simpan & lanjutkan' }}
                 </button>
             </div>
         </form>

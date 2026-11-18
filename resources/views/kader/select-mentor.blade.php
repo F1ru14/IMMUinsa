@@ -1,57 +1,51 @@
 @extends('layouts.app', ['title' => 'Pilih Mentor Senior - IMM UINSA'])
 
 @section('content')
-<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+<div class="mx-auto max-w-4xl px-4 py-8 sm:px-6 lg:px-8">
     <x-onboarding-header
         :title="'Pilih Mentor Senior Bidang '.$user->focus_area->label()"
-        badge="Milestone Tercapai: 3/3 Tugas Selesai"
-        badge-class="bg-emerald-100 text-emerald-800 border-emerald-200"
+        badge="Tiga dari tiga tugas selesai"
+        badge-class="border-emerald-200 bg-emerald-50 text-emerald-800"
         :current-step="4">
         <x-slot:description>
-            Selamat <strong>{{ $user->name }}</strong>! Anda telah berhasil menuntaskan seluruh tugas perkaderan awal. Sekarang saatnya memilih Mentor senior untuk pendampingan jangka panjang dan jejaring karir/pergerakan Anda.
+            Anda telah menuntaskan seluruh tugas perkaderan awal. Pilih mentor senior untuk pendampingan jangka panjang.
         </x-slot:description>
     </x-onboarding-header>
 
     @if($mentors->isEmpty())
-        <div class="bg-white p-8 rounded-2xl border border-gray-200 text-center max-w-md mx-auto">
-            <p class="text-gray-500 text-sm">Belum ada mentor yang terdaftar untuk bidang ini saat ini.</p>
+        <div class="rounded-lg border border-slate-200 bg-white px-6 py-12 text-center">
+            <p class="text-sm text-slate-500">Belum ada mentor terdaftar untuk bidang ini.</p>
         </div>
     @else
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+        <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
             @foreach($mentors as $mentor)
-                <div class="bg-white rounded-2xl border border-gray-200 shadow-sm p-6 flex flex-col justify-between hover:shadow-md transition">
-                    <div>
-                        <div class="flex items-center space-x-4 mb-4">
-                            <div class="w-14 h-14 rounded-full bg-amber-100 text-amber-800 font-bold text-xl flex items-center justify-center border border-amber-200">
-                                {{ strtoupper(substr($mentor->name, 0, 2)) }}
-                            </div>
-                            <div>
-                                <h3 class="font-bold text-gray-900 text-base">{{ $mentor->name }}</h3>
-                                <p class="text-xs text-gray-500">{{ $mentor->biodata?->institutionLabel() ?? 'Alumni & Tokoh Muhammadiyah' }}</p>
-                                <span class="inline-block mt-1 text-xs text-amber-700 font-medium bg-amber-50 px-2 py-0.5 rounded">
-                                    Mentor Senior
-                                </span>
-                            </div>
-                        </div>
-
-                        <div class="space-y-2 text-xs text-gray-600 bg-gray-50 p-3 rounded-lg mb-6">
-                            <div>
-                                <span class="font-semibold text-gray-700">Profil & Rekam Jejak:</span>
-                                <p class="mt-0.5 text-gray-800">{{ $mentor->biodata->expertise ?? '-' }}</p>
-                            </div>
-                            <div>
-                                <span class="font-semibold text-gray-700">Kontak Pendampingan:</span>
-                                <p class="mt-0.5 text-gray-800">{{ $mentor->biodata->phone_number ?? '-' }}</p>
-                            </div>
+                <div class="flex flex-col rounded-lg border border-slate-200 bg-white p-5">
+                    <div class="flex items-center gap-3">
+                        <span class="flex size-11 shrink-0 items-center justify-center rounded-full bg-brand-soft text-sm font-semibold text-brand">
+                            {{ strtoupper(substr($mentor->name, 0, 2)) }}
+                        </span>
+                        <div>
+                            <h2 class="font-semibold text-slate-900">{{ $mentor->name }}</h2>
+                            <p class="text-xs text-slate-500">{{ $mentor->biodata?->institutionLabel() ?? 'Alumni & tokoh Muhammadiyah' }}</p>
                         </div>
                     </div>
 
-                    <form action="{{ route('kader.mentor.store') }}" method="POST">
+                    <dl class="mt-4 space-y-3 border-t border-slate-100 pt-4 text-sm">
+                        <div>
+                            <dt class="text-xs text-slate-500">Profil & rekam jejak</dt>
+                            <dd class="mt-0.5 text-slate-800">{{ $mentor->biodata->expertise ?? '-' }}</dd>
+                        </div>
+                        <div>
+                            <dt class="text-xs text-slate-500">Kontak pendampingan</dt>
+                            <dd class="mt-0.5 text-slate-800">{{ $mentor->biodata->phone_number ?? '-' }}</dd>
+                        </div>
+                    </dl>
+
+                    <form action="{{ route('kader.mentor.store') }}" method="POST" class="mt-auto pt-5">
                         @csrf
                         <input type="hidden" name="mentor_id" value="{{ $mentor->id }}">
-                        <button type="submit"
-                            class="w-full py-2.5 px-4 bg-amber-500 hover:bg-amber-600 text-slate-900 text-white font-medium text-sm rounded-xl shadow-sm transition">
-                            Tetapkan Sebagai Mentor Saya &rarr;
+                        <button type="submit" class="w-full rounded-md bg-brand px-4 py-2 text-sm font-semibold text-white transition hover:bg-brand-dark">
+                            Pilih mentor
                         </button>
                     </form>
                 </div>
@@ -60,4 +54,3 @@
     @endif
 </div>
 @endsection
-

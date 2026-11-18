@@ -94,6 +94,26 @@ test('mentor selection is locked until 3 tasks are completed', function () {
     $mentorResponse->assertSee('Pilih Mentor Senior');
 });
 
+test('task completions from another focus area do not count toward the current focus', function () {
+    $fasilitator = User::where('role', 'fasilitator')->where('focus_area', FocusArea::Akademisi->value)->first();
+
+    $kader = User::factory()->kader()->withBiodata()->create([
+        'focus_area' => FocusArea::Akademisi,
+        'fasilitator_id' => $fasilitator->id,
+    ]);
+
+    foreach (Task::where('focus_area', FocusArea::Entrepreneur)->take(3)->get() as $task) {
+        $this->actingAs($kader)->post(route('kader.tasks.submit', $task));
+    }
+
+    expect($kader->fresh()->completedTasksCount())->toBe(0)
+        ->and($kader->fresh()->canSelectMentor())->toBeFalse();
+
+    $this->actingAs($kader)->get(route('kader.tasks.index'))
+        ->assertOk()
+        ->assertDontSee('Telah selesai');
+});
+
 test('each focus area is seeded with two fasilitators and two mentors', function () {
     foreach (FocusArea::cases() as $focusArea) {
         expect(User::where('role', Role::Fasilitator)->where('focus_area', $focusArea)->count())

@@ -10,7 +10,7 @@ test('admin can access admin dashboard', function () {
     $response = $this->actingAs($admin)->get(route('admin.dashboard'));
 
     $response->assertOk();
-    $response->assertSee('Admin Dashboard');
+    $response->assertSee('Dashboard admin');
 });
 
 test('non-admin is forbidden from admin dashboard', function () {
@@ -55,7 +55,7 @@ test('mentor can access mentor dashboard', function () {
     $response = $this->actingAs($mentor)->get(route('mentor.dashboard'));
 
     $response->assertOk();
-    $response->assertSee('Dashboard Mentor');
+    $response->assertSee('Dashboard mentor');
 });
 
 test('fasilitator with biodata can access fasilitator dashboard', function () {
@@ -64,7 +64,7 @@ test('fasilitator with biodata can access fasilitator dashboard', function () {
     $response = $this->actingAs($fasilitator)->get(route('fasilitator.dashboard'));
 
     $response->assertOk();
-    $response->assertSee('Dashboard Fasilitator');
+    $response->assertSee('Dashboard fasilitator');
 });
 
 test('kader with biodata and fasilitator can access kader dashboard', function () {

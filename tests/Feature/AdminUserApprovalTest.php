@@ -9,7 +9,7 @@ test('admin dashboard lists users waiting for approval', function () {
     $response = $this->actingAs($admin)->get(route('admin.dashboard'));
 
     $response->assertOk();
-    $response->assertSee('Menunggu Persetujuan');
+    $response->assertSee('Menunggu persetujuan');
     $response->assertSee('Calon Mentor Senior');
 });
 

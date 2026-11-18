@@ -16,84 +16,66 @@ export default function AuthSimpleLayout({
         // `theme-light` mengunci token warna terang agar halaman auth tetap
         // terbaca walau sistem pengguna memakai dark mode.
         <div className="theme-light grid min-h-svh bg-slate-50 lg:grid-cols-2">
-            {/* ============== Panel brand (maroon darah IMM) ============== */}
-            <div className="relative hidden flex-col justify-between overflow-hidden bg-[#59040C] p-10 text-white lg:flex">
-                {/* Grid geometris disiplin, bukan gradien neon */}
-                <div
-                    aria-hidden="true"
-                    className="pointer-events-none absolute inset-0 border-r border-amber-300/10 bg-[linear-gradient(to_right,rgba(251,191,36,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(251,191,36,0.05)_1px,transparent_1px)] [background-size:56px_56px]"
-                />
-
-                <Link
-                    href={home()}
-                    className="relative z-10 flex items-center gap-3"
-                >
-                    <BrandLogo className="size-10 shrink-0" />
+            {/* Panel brand */}
+            <div className="relative hidden flex-col justify-between bg-[#59040C] p-10 text-white lg:flex">
+                <Link href={home()} className="flex items-center gap-3">
+                    <BrandLogo className="h-8 w-auto" />
                     <div className="leading-tight">
-                        <p className="text-sm font-bold tracking-wide">
-                            {name}
-                        </p>
-                        <p className="text-[11px] text-white/60">
+                        <p className="text-sm font-semibold">{name}</p>
+                        <p className="text-xs text-white/55">
                             Platform Digital Perkaderan IMM UINSA
                         </p>
                     </div>
                 </Link>
 
-                <div className="relative z-10 max-w-md">
-                    <span className="inline-flex items-center rounded-sm border border-amber-300/30 bg-amber-300/10 px-3 py-1 text-[11px] font-bold tracking-[0.2em] text-amber-300 uppercase">
+                <div className="max-w-md">
+                    <p className="text-xs font-semibold tracking-[0.18em] text-amber-300 uppercase">
                         Komisariat UIN Sunan Ampel
-                    </span>
-                    <h2 className="mt-5 text-3xl font-extrabold tracking-tight">
+                    </p>
+                    <h2 className="mt-4 text-3xl font-bold tracking-tight">
                         Cendekiawan
-                        <span className="text-amber-300"> Berakhlak Mulia</span>
+                        <span className="block text-amber-300">
+                            berakhlak mulia
+                        </span>
                     </h2>
-                    <p className="mt-3 text-sm leading-relaxed text-white/65">
+                    <p className="mt-4 text-sm leading-relaxed text-white/65">
                         Portal perkaderan berjenjang: verifikasi komisariat,
                         penugasan nyata, evaluasi fasilitator, hingga mentoring
                         senior persyarikatan.
                     </p>
-                    <div className="mt-6 flex gap-2">
+                    <div className="mt-6 flex gap-4 text-xs text-white/55">
                         {brandValues.map((value) => (
-                            <span
-                                key={value}
-                                className="rounded-sm border border-amber-300/25 bg-white/5 px-2.5 py-1 text-[11px] font-semibold text-amber-200/90"
-                            >
-                                {value}
-                            </span>
+                            <span key={value}>{value}</span>
                         ))}
                     </div>
                 </div>
 
-                <p className="relative z-10 text-center text-[11px] tracking-widest text-white/35">
-                    CENDEKIAWAN · BERAKHLAK · MULIA
+                <p className="text-xs text-white/35">
+                    Cendekiawan · Berakhlak · Mulia
                 </p>
             </div>
 
-            {/* ============== Area formulir ============== */}
+            {/* Form area */}
             <div className="flex flex-col items-center justify-center gap-6 px-5 py-10 sm:px-8 sm:py-12">
-                {/* Brand ringkas untuk mobile */}
+                {/* Compact brand for mobile */}
                 <Link
                     href={home()}
                     className="flex items-center gap-2.5 lg:hidden"
                 >
-                    <div className="flex size-10 items-center justify-center rounded-md bg-brand p-2">
-                        <BrandLogo className="size-full" />
-                    </div>
-                    <div className="leading-tight text-slate-900">
-                        <p className="text-sm font-bold tracking-wide">
+                    <span className="leading-tight text-slate-900">
+                        <span className="block text-sm font-semibold">
                             {name}
-                        </p>
-                        <p className="text-[11px] text-slate-500">
-                            Platform Digital Perkaderan IMM UINSA
-                        </p>
-                    </div>
+                        </span>
+                        <span className="block text-xs text-slate-500">
+                            Perkaderan IMM UINSA
+                        </span>
+                    </span>
                 </Link>
 
                 <div className="w-full max-w-md">
-                    <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-[0_1px_3px_rgba(15,23,42,0.06)] sm:p-8">
-                        <div className="mb-7">
-                            <div className="mb-4 h-0.5 w-8 bg-gold" />
-                            <h1 className="text-[22px] leading-tight font-extrabold tracking-tight text-slate-900">
+                    <div className="rounded-lg border border-slate-200 bg-white p-6 sm:p-8">
+                        <div className="mb-7 border-b border-slate-100 pb-5">
+                            <h1 className="text-[22px] leading-tight font-bold tracking-tight text-slate-900">
                                 {title}
                             </h1>
                             {description && (
@@ -105,19 +87,14 @@ export default function AuthSimpleLayout({
                         {children}
                     </div>
 
-                    <p className="mt-6 flex flex-wrap items-center justify-center gap-x-1.5 gap-y-1 text-center text-xs text-slate-500">
-                        <span>Butuh bantuan?</span>
+                    <p className="mt-6 text-center text-xs text-slate-500">
+                        Butuh bantuan?{' '}
                         <a
                             href="mailto:imm.uinsa@gmail.com"
                             className="font-semibold text-brand underline decoration-brand/30 underline-offset-4 transition hover:decoration-brand"
                         >
                             Hubungi pengurus komisariat
                         </a>
-                    </p>
-
-                    <p className="mt-2 text-center text-[11px] leading-relaxed text-slate-400">
-                        {name} — Platform Digital Perkaderan IMM UIN Sunan Ampel
-                        Surabaya
                     </p>
                 </div>
             </div>

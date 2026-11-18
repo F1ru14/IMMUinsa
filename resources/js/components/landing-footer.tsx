@@ -27,40 +27,21 @@ export default function LandingFooter() {
     };
 
     return (
-        <footer className="relative overflow-hidden bg-[#43040a] text-white">
-            {/* Multi-colored top accent bar */}
-            <div aria-hidden="true" className="flex h-1.5 w-full">
-                <span className="w-[38%] bg-brand" />
-                <span className="w-[24%] bg-gold" />
-                <span className="w-[22%] bg-brand-dark" />
-                <span className="w-[16%] bg-amber-200" />
-            </div>
-
-            {/* Oversized background watermark */}
-            <span
-                aria-hidden="true"
-                className="pointer-events-none absolute -right-4 -bottom-6 translate-x-[10%] text-[22vw] leading-none font-black tracking-tighter text-white/[0.035] select-none lg:text-[18vw]"
-            >
-                IMM UINSA
-                {/*diganti foto*/}
-            </span>
-
-            <div className="relative mx-auto max-w-6xl px-4 py-14 sm:px-6 lg:py-16">
+        <footer className="border-t border-white/10 bg-brand-ink text-white">
+            <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 lg:py-16">
                 <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-12 lg:gap-8">
-                    {/* Column 1 — logo card, description, tagline */}
+                    {/* Brand */}
                     <div className="lg:col-span-5">
                         <div className="inline-flex items-center gap-3">
-                            <div className="flex size-18 shrink-0 items-center justify-center">
-                                <BrandLogo className="size-full" />
-                            </div>
-                            <div>
-                                <p className="text-sm font-bold tracking-wide text-white">
+                            <BrandLogo className="h-8 w-auto" />
+                            <span className="leading-tight">
+                                <span className="block text-sm font-semibold text-white">
                                     {name}
-                                </p>
-                                <p className="text-[10px] font-semibold tracking-[0.2em] text-amber-300/80 uppercase">
+                                </span>
+                                <span className="block text-xs text-white/50">
                                     Platform Digital Perkaderan
-                                </p>
-                            </div>
+                                </span>
+                            </span>
                         </div>
 
                         <p className="mt-6 max-w-md text-sm leading-relaxed text-white/60">
@@ -70,25 +51,22 @@ export default function LandingFooter() {
                             berjenjang.
                         </p>
 
-                        <div className="mt-6 flex items-center gap-3">
-                            <span className="h-0.5 w-10 bg-gold" />
-                            <p className="text-[11px] font-bold tracking-[0.25em] text-amber-300 uppercase">
-                                Cendekiawan · Berakhlak · Mulia
-                            </p>
-                        </div>
+                        <p className="mt-6 text-xs font-semibold tracking-[0.18em] text-amber-300 uppercase">
+                            Cendekiawan · Berakhlak · Mulia
+                        </p>
                     </div>
 
-                    {/* Column 2 — explore navigation */}
+                    {/* Explore */}
                     <div className="lg:col-span-2">
-                        <h3 className="text-[11px] font-bold tracking-[0.2em] text-amber-300/80 uppercase">
+                        <h3 className="text-xs font-medium text-white/45">
                             Jelajahi
                         </h3>
-                        <ul className="mt-5 space-y-3">
+                        <ul className="mt-4 space-y-2.5">
                             {exploreLinks.map((item) => (
                                 <li key={item.label}>
                                     <a
                                         href={item.href}
-                                        className="text-sm text-white/60 transition hover:text-amber-300"
+                                        className="text-sm text-white/65 transition hover:text-white"
                                     >
                                         {item.label}
                                     </a>
@@ -97,17 +75,17 @@ export default function LandingFooter() {
                         </ul>
                     </div>
 
-                    {/* Column 3 — portal kader */}
+                    {/* Portal */}
                     <div className="lg:col-span-2">
-                        <h3 className="text-[11px] font-bold tracking-[0.2em] text-amber-300/80 uppercase">
-                            Portal Kader
+                        <h3 className="text-xs font-medium text-white/45">
+                            Portal kader
                         </h3>
-                        <ul className="mt-5 space-y-3">
+                        <ul className="mt-4 space-y-2.5">
                             {accountLinks.map((item) => (
                                 <li key={item.label}>
                                     <Link
                                         href={item.href}
-                                        className="text-sm text-white/60 transition hover:text-amber-300"
+                                        className="text-sm text-white/65 transition hover:text-white"
                                     >
                                         {item.label}
                                     </Link>
@@ -116,13 +94,13 @@ export default function LandingFooter() {
                         </ul>
                     </div>
 
-                    {/* Column 4 — address & social media */}
+                    {/* Contact */}
                     <div className="lg:col-span-3">
-                        <h3 className="text-[11px] font-bold tracking-[0.2em] text-amber-300/80 uppercase">
+                        <h3 className="text-xs font-medium text-white/45">
                             Sekretariat
                         </h3>
-                        <address className="mt-5 flex gap-3 text-sm leading-relaxed text-white/60 not-italic">
-                            <MapPin className="mt-0.5 size-4 shrink-0 text-gold" />
+                        <address className="mt-4 flex gap-3 text-sm leading-relaxed text-white/65 not-italic">
+                            <MapPin className="mt-0.5 size-4 shrink-0 text-amber-300" />
                             <span>
                                 Jl. Pabrik Kulit III/25 Surabaya
                                 <br />
@@ -131,9 +109,9 @@ export default function LandingFooter() {
                         </address>
                         <a
                             href="mailto:imm.uinsa@gmail.com"
-                            className="mt-3 flex items-center gap-3 text-sm text-white/60 transition hover:text-amber-300"
+                            className="mt-3 flex items-center gap-3 text-sm text-white/65 transition hover:text-white"
                         >
-                            <Mail className="size-4 shrink-0 text-gold" />
+                            <Mail className="size-4 shrink-0 text-amber-300" />
                             <span>imm.uinsa@gmail.com</span>
                         </a>
                         <a
@@ -141,31 +119,27 @@ export default function LandingFooter() {
                             target="_blank"
                             rel="noreferrer"
                             aria-label="Instagram IMM UINSA"
-                            className="mt-3 flex items-center gap-3 text-sm text-white/60 transition hover:text-amber-300"
+                            className="mt-3 flex items-center gap-3 text-sm text-white/65 transition hover:text-white"
                         >
-                            <Instagram className="size-4 shrink-0 text-gold" />
+                            <Instagram className="size-4 shrink-0 text-amber-300" />
                             <span>@imm.uinsunanampel.sby</span>
                         </a>
                     </div>
                 </div>
             </div>
 
-            {/* Sub-footer */}
-            <div className="relative border-t border-white/10">
-                <div className="mx-auto flex max-w-6xl flex-col items-start gap-4 px-4 py-6 sm:flex-row sm:items-center sm:justify-between sm:px-6">
-                    <p className="text-xs text-white/50">
-                        © {year} {name}.
-                    </p>
-                    <p className="text-[10px] font-semibold tracking-[0.2em] text-amber-300/60 uppercase">
-                        Platform Digital Perkaderan IMM UINSA
+            <div className="border-t border-white/10">
+                <div className="mx-auto flex max-w-6xl flex-col items-start gap-3 px-4 py-5 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+                    <p className="text-xs text-white/45">
+                        © {year} {name}
                     </p>
                     <button
                         type="button"
                         onClick={scrollToTop}
-                        aria-label="Kembali ke atas"
-                        className="flex size-10 shrink-0 items-center justify-center rounded-full border border-white/20 bg-[#43040a] text-white/70 shadow-lg shadow-black/30 transition hover:-translate-y-0.5 hover:border-gold hover:text-gold"
+                        className="inline-flex items-center gap-1.5 text-xs text-white/55 transition hover:text-white"
                     >
-                        <ArrowUp className="size-4" />
+                        Kembali ke atas
+                        <ArrowUp className="size-3.5" />
                     </button>
                 </div>
             </div>

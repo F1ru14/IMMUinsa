@@ -62,6 +62,7 @@
 
     --color-brand: var(--brand);
     --color-brand-dark: var(--brand-dark);
+    --color-brand-ink: var(--brand-ink);
     --color-brand-soft: var(--brand-soft);
     --color-gold: var(--gold);
     --color-gold-soft: var(--gold-soft);
@@ -104,6 +105,7 @@
 
     --brand: oklch(0.444 0.177 26.899); /* deep maroon - red-800 #991b1b */
     --brand-dark: oklch(0.396 0.141 25.723); /* pressed maroon - red-900 */
+    --brand-ink: #43040a; /* deep maroon for chrome and dark surfaces */
     --brand-soft: oklch(0.971 0.013 17.38); /* maroon tinted surface - red-50 */
     --gold: oklch(0.769 0.188 70.08); /* IMM gold - amber-500 */
     --gold-soft: oklch(
@@ -151,6 +153,7 @@
         0.637 0.237 25.331
     ); /* brighter maroon for dark mode - red-500 */
     --brand-dark: oklch(0.577 0.245 27.325); /* red-600 */
+    --brand-ink: #43040a;
     --brand-soft: oklch(0.271 0.105 12.09); /* dark maroon surface - red-950 */
     --gold: oklch(0.769 0.188 70.08); /* amber-500 */
     --gold-soft: oklch(0.261 0.09 90); /* deep gold surface */
@@ -184,6 +187,7 @@
     --ring: oklch(0.444 0.177 26.899 / 0.55);
     --brand: oklch(0.444 0.177 26.899);
     --brand-dark: oklch(0.396 0.141 25.723);
+    --brand-ink: #43040a;
     --brand-soft: oklch(0.971 0.013 17.38);
     --gold: oklch(0.769 0.188 70.08);
     --gold-soft: oklch(0.987 0.022 95.277);
@@ -215,6 +219,7 @@
     --color-ring: oklch(0.444 0.177 26.899 / 0.55);
     --color-brand: oklch(0.444 0.177 26.899);
     --color-brand-dark: oklch(0.396 0.141 25.723);
+    --color-brand-ink: #43040a;
     --color-brand-soft: oklch(0.971 0.013 17.38);
     --color-gold: oklch(0.769 0.188 70.08);
     --color-gold-soft: oklch(0.987 0.022 95.277);

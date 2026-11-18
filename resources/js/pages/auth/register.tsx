@@ -229,7 +229,7 @@ export default function Register({ passwordRules }: Props) {
 
                             <Button
                                 type="submit"
-                                className="h-10 w-full border-b-2 border-transparent bg-brand text-sm font-semibold text-white shadow-none transition hover:border-gold hover:bg-brand-dark focus-visible:border-brand focus-visible:ring-brand/40"
+                                className="h-10 w-full bg-brand text-sm font-semibold text-white shadow-none transition hover:bg-brand-dark focus-visible:ring-brand/40"
                                 tabIndex={5}
                                 data-test="register-user-button"
                             >

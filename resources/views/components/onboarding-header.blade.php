@@ -3,7 +3,7 @@
     'currentStep' => 2,
     'showKaderSteps' => true,
     'badge' => null,
-    'badgeClass' => 'bg-brand-soft text-brand-dark border-brand/20',
+    'badgeClass' => 'bg-brand-soft text-brand-dark border-brand/15',
 ])
 
 @php
@@ -21,16 +21,16 @@
     $lastStep = array_key_last($steps);
 @endphp
 
-<header class="mb-8">
-    <p class="text-[11px] font-bold uppercase tracking-[0.2em] text-brand">Onboarding Kaderisasi</p>
+<header class="mb-8 border-b border-slate-200 pb-6">
+    <p class="text-xs font-semibold text-brand">Onboarding kaderisasi</p>
 
     @if($badge)
-        <span class="mt-3 inline-flex items-center rounded-full border px-3 py-1 text-xs font-semibold {{ $badgeClass }}">
+        <span class="mt-3 inline-flex items-center rounded border px-2.5 py-0.5 text-xs font-medium {{ $badgeClass }}">
             {{ $badge }}
         </span>
     @endif
 
-    <h1 class="mt-2 text-2xl font-extrabold tracking-tight text-slate-900 sm:text-3xl">{{ $title }}</h1>
+    <h1 class="mt-2 text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">{{ $title }}</h1>
 
     @isset($description)
         <div class="mt-2 max-w-2xl text-sm leading-relaxed text-slate-600">{{ $description }}</div>
@@ -45,15 +45,17 @@
 
             <li class="flex shrink-0 items-center gap-2">
                 @if($isCompleted)
-                    <span class="flex size-7 shrink-0 items-center justify-center rounded-full bg-brand text-xs font-bold text-white">&check;</span>
-                    <span class="whitespace-nowrap text-xs font-semibold text-slate-700">
+                    <span class="flex size-6 shrink-0 items-center justify-center rounded-full bg-brand text-white">
+                        <svg class="size-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="m5 13 4 4L19 7"/></svg>
+                    </span>
+                    <span class="whitespace-nowrap text-xs font-medium text-slate-600">
                         {{ $label }}<span class="sr-only"> (selesai)</span>
                     </span>
                 @elseif($isCurrent)
-                    <span class="flex size-7 shrink-0 items-center justify-center rounded-full border-2 border-brand bg-brand-soft text-xs font-bold text-brand">{{ $number }}</span>
-                    <span class="whitespace-nowrap text-xs font-bold text-slate-900">{{ $label }}</span>
+                    <span class="flex size-6 shrink-0 items-center justify-center rounded-full border border-brand text-xs font-semibold text-brand">{{ $number }}</span>
+                    <span class="whitespace-nowrap text-xs font-semibold text-slate-900">{{ $label }}</span>
                 @else
-                    <span class="flex size-7 shrink-0 items-center justify-center rounded-full border border-slate-300 text-xs font-bold text-slate-400">{{ $number }}</span>
+                    <span class="flex size-6 shrink-0 items-center justify-center rounded-full border border-slate-300 text-xs font-medium text-slate-400">{{ $number }}</span>
                     <span class="whitespace-nowrap text-xs font-medium text-slate-400">{{ $label }}</span>
                 @endif
             </li>

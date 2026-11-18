@@ -110,7 +110,10 @@ class KaderJourneyController extends Controller
             ->orderBy('order')
             ->get();
 
-        $completedTaskIds = $user->completedTasks()->pluck('task_id')->toArray();
+        $completedTaskIds = $tasks->pluck('id')
+            ->intersect($user->completedTasks()->pluck('task_id'))
+            ->values()
+            ->all();
 
         return view('kader.tasks', [
             'user' => $user,
@@ -147,7 +150,7 @@ class KaderJourneyController extends Controller
 
         if ($completedCount >= 3) {
             return redirect()->route('kader.tasks.index')
-                ->with('status', '🎉 Selamat! Anda telah menyelesaikan 3 tugas perkaderan. Pemilihan Mentor kini TELAH TERBUKA!');
+                ->with('status', 'Tiga tugas perkaderan selesai. Pemilihan mentor sudah terbuka.');
         }
 
         $remaining = 3 - $completedCount;

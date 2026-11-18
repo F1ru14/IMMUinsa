@@ -1,63 +1,56 @@
 @extends('layouts.app', ['title' => 'Pilih Fasilitator - IMM UINSA'])
 
 @section('content')
-<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+<div class="mx-auto max-w-4xl px-4 py-8 sm:px-6 lg:px-8">
     <x-onboarding-header
         title="Rekomendasi Fasilitator Pendamping"
         :badge="'Bidang: '.$user->focus_area->label()"
-        :badge-class="$user->focus_area->badgeClass()"
         :current-step="3">
         <x-slot:description>
-            Pilihlah salah satu fasilitator berikut yang memiliki keahlian dan rekam jejak di bidang <strong>{{ $user->focus_area->label() }}</strong> untuk mendampingi proses perkaderan Anda.
+            Pilih fasilitator yang memiliki keahlian dan rekam jejak di bidang <strong>{{ $user->focus_area->label() }}</strong>.
         </x-slot:description>
     </x-onboarding-header>
 
     <div class="mb-6">
-        <a href="{{ route('kader.focus-area.create') }}" class="text-xs text-brand hover:underline">
-            &larr; Ganti Fokus Bidang
+        <a href="{{ route('kader.focus-area.create') }}" class="text-sm font-medium text-brand hover:underline">
+            &larr; Ganti fokus bidang
         </a>
     </div>
 
     @if($fasilitators->isEmpty())
-        <div class="bg-white p-8 rounded-2xl border border-gray-200 text-center max-w-md mx-auto">
-            <p class="text-gray-500 text-sm">Belum ada fasilitator yang terdaftar untuk bidang ini saat ini.</p>
+        <div class="rounded-lg border border-slate-200 bg-white px-6 py-12 text-center">
+            <p class="text-sm text-slate-500">Belum ada fasilitator terdaftar untuk bidang ini.</p>
         </div>
     @else
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+        <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
             @foreach($fasilitators as $fasil)
-                <div class="bg-white rounded-2xl border border-gray-200 shadow-sm p-6 flex flex-col justify-between hover:shadow-md transition">
-                    <div>
-                        <div class="flex items-center space-x-4 mb-4">
-                            <div class="w-14 h-14 rounded-full bg-red-50 text-brand font-bold text-xl flex items-center justify-center border border-red-200">
-                                {{ strtoupper(substr($fasil->name, 0, 2)) }}
-                            </div>
-                            <div>
-                                <h3 class="font-bold text-gray-900 text-base">{{ $fasil->name }}</h3>
-                                <p class="text-xs text-gray-500">{{ $fasil->biodata?->institutionLabel() ?? 'IMM UIN Sunan Ampel' }}</p>
-                                <span class="inline-block mt-1 text-xs text-amber-800 font-medium bg-slate-100 px-2 py-0.5 rounded">
-                                    Fasilitator Aktif
-                                </span>
-                            </div>
-                        </div>
-
-                        <div class="space-y-2 text-xs text-gray-600 bg-gray-50 p-3 rounded-lg mb-6">
-                            <div>
-                                <span class="font-semibold text-gray-700">Fokus Keahlian:</span>
-                                <p class="mt-0.5 text-gray-800">{{ $fasil->biodata->expertise ?? '-' }}</p>
-                            </div>
-                            <div>
-                                <span class="font-semibold text-gray-700">Kontak Pembimbing:</span>
-                                <p class="mt-0.5 text-gray-800">{{ $fasil->biodata->phone_number ?? '-' }}</p>
-                            </div>
+                <div class="flex flex-col rounded-lg border border-slate-200 bg-white p-5">
+                    <div class="flex items-center gap-3">
+                        <span class="flex size-11 shrink-0 items-center justify-center rounded-full bg-brand-soft text-sm font-semibold text-brand">
+                            {{ strtoupper(substr($fasil->name, 0, 2)) }}
+                        </span>
+                        <div>
+                            <h2 class="font-semibold text-slate-900">{{ $fasil->name }}</h2>
+                            <p class="text-xs text-slate-500">{{ $fasil->biodata?->institutionLabel() ?? 'IMM UIN Sunan Ampel' }}</p>
                         </div>
                     </div>
 
-                    <form action="{{ route('kader.fasilitator.store') }}" method="POST">
+                    <dl class="mt-4 space-y-3 border-t border-slate-100 pt-4 text-sm">
+                        <div>
+                            <dt class="text-xs text-slate-500">Fokus keahlian</dt>
+                            <dd class="mt-0.5 text-slate-800">{{ $fasil->biodata->expertise ?? '-' }}</dd>
+                        </div>
+                        <div>
+                            <dt class="text-xs text-slate-500">Kontak</dt>
+                            <dd class="mt-0.5 text-slate-800">{{ $fasil->biodata->phone_number ?? '-' }}</dd>
+                        </div>
+                    </dl>
+
+                    <form action="{{ route('kader.fasilitator.store') }}" method="POST" class="mt-auto pt-5">
                         @csrf
                         <input type="hidden" name="fasilitator_id" value="{{ $fasil->id }}">
-                        <button type="submit"
-                            class="w-full py-2.5 px-4 bg-brand text-white hover:bg-brand-dark font-medium text-sm rounded-xl shadow-sm transition">
-                            Pilih Fasilitator Ini & Masuk Dashboard &rarr;
+                        <button type="submit" class="w-full rounded-md bg-brand px-4 py-2 text-sm font-semibold text-white transition hover:bg-brand-dark">
+                            Pilih fasilitator
                         </button>
                     </form>
                 </div>
@@ -65,9 +58,8 @@
         </div>
     @endif
 
-    <div class="mt-8 text-center">
+    <div class="mt-8">
         <x-back-button :fallback="route('kader.focus-area.create')" />
     </div>
 </div>
 @endsection
-

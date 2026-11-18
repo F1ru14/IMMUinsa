@@ -1,189 +1,189 @@
 @extends('layouts.app', ['title' => 'Dashboard Kader - IMM UINSA'])
 
 @section('content')
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+<div class="mx-auto max-w-6xl space-y-6 px-4 sm:px-6 lg:px-8">
 
-    <!-- Header Banner -->
-    <div class="bg-white p-6 sm:p-8 rounded-2xl border border-gray-200 shadow-sm flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+    <!-- Page header -->
+    <div class="flex flex-col gap-4 border-b border-slate-200 pb-6 md:flex-row md:items-end md:justify-between">
         <div>
-            <div class="flex items-center space-x-2">
-                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold {{ $user->focus_area?->badgeClass() ?? 'bg-gray-100 text-gray-800' }}">
-                    Bidang: {{ $user->focus_area?->label() ?? 'Belum Memilih' }}
-                </span>
-                <span class="text-xs text-gray-500">• {{ $user->biodata?->institutionLabel() ?? 'IMM UINSA' }}</span>
-            </div>
-            <h1 class="text-2xl sm:text-3xl font-extrabold text-gray-900 mt-2">
+            <p class="text-xs font-medium text-slate-500">
+                {{ $user->biodata?->institutionLabel() ?? 'IMM UINSA' }}
+                &middot; Bidang {{ $user->focus_area?->label() ?? 'Belum dipilih' }}
+            </p>
+            <h1 class="mt-1 text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">
                 Selamat Datang, {{ $user->name }}
             </h1>
-            <p class="text-sm text-gray-600 mt-1">
-                Portal Pergerakan Kader: Selesaikan tahapan penugasan untuk membuka supervisi dari Mentor senior.
+            <p class="mt-1 max-w-2xl text-sm leading-relaxed text-slate-600">
+                Selesaikan tiga penugasan wajib untuk membuka pendampingan dari mentor senior.
             </p>
         </div>
 
-        <div class="flex items-center space-x-3">
-            <a href="{{ route('kader.focus-area.create') }}" class="text-xs text-brand bg-brand-soft hover:bg-brand/10 px-3 py-2 rounded-lg font-medium transition">
-                Ubah Fokus Bidang
+        <div class="flex flex-wrap gap-2">
+            <a href="{{ route('kader.focus-area.create') }}" class="inline-flex items-center rounded-md border border-slate-300 bg-white px-3 py-1.5 text-xs font-medium text-slate-700 transition hover:bg-slate-50">
+                Ubah fokus bidang
             </a>
-            <a href="{{ route('kader.fasilitator.create') }}" class="text-xs text-brand bg-brand-soft hover:bg-brand/10 px-3 py-2 rounded-lg font-medium transition">
-                Ganti Fasilitator
+            <a href="{{ route('kader.fasilitator.create') }}" class="inline-flex items-center rounded-md border border-slate-300 bg-white px-3 py-1.5 text-xs font-medium text-slate-700 transition hover:bg-slate-50">
+                Ganti fasilitator
             </a>
         </div>
     </div>
 
-    <!-- Status Overview: Fasilitator & Mentor -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <!-- Fasilitator Card -->
-        <div class="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm">
-            <div class="flex items-center justify-between mb-4">
-                <span class="text-xs font-bold uppercase tracking-wider text-brand bg-brand-soft px-2.5 py-1 rounded-md">
-                    Fasilitator Pendamping
-                </span>
-                <span class="text-xs text-emerald-700 font-semibold">● Aktif Membimbing</span>
+    <!-- Status: fasilitator & mentor -->
+    <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+        <!-- Fasilitator -->
+        <div class="rounded-lg border border-slate-200 bg-white p-6">
+            <div class="flex items-start justify-between gap-4">
+                <h2 class="text-sm font-semibold text-slate-900">Fasilitator pendamping</h2>
+                @if($user->fasilitator)
+                    <span class="inline-flex shrink-0 items-center gap-1.5 text-xs font-medium text-emerald-700">
+                        <span class="size-1.5 rounded-full bg-emerald-600"></span>Aktif
+                    </span>
+                @endif
             </div>
+
             @if($user->fasilitator)
-                <div class="flex items-start space-x-4">
-                    <div class="w-12 h-12 rounded-full bg-slate-100 text-slate-700 font-bold flex items-center justify-center text-lg shrink-0">
+                <div class="mt-4 flex items-start gap-3">
+                    <span class="flex size-10 shrink-0 items-center justify-center rounded-full bg-brand-soft text-sm font-semibold text-brand">
                         {{ strtoupper(substr($user->fasilitator->name, 0, 2)) }}
-                    </div>
-                    <div>
-                        <h3 class="font-bold text-gray-900 text-base">{{ $user->fasilitator->name }}</h3>
-                        <p class="text-xs text-gray-500">{{ $user->fasilitator->biodata?->institutionLabel() ?? 'Fasilitator Perkaderan' }}</p>
-                        <p class="text-xs text-gray-700 mt-1">Keahlian: <span class="font-medium">{{ $user->fasilitator->biodata?->expertise ?? '-' }}</span></p>
-                        <p class="text-xs text-gray-700">WhatsApp: <span class="font-semibold text-emerald-700">{{ $user->fasilitator->biodata?->phone_number ?? '-' }}</span></p>
+                    </span>
+                    <div class="min-w-0">
+                        <p class="font-medium text-slate-900">{{ $user->fasilitator->name }}</p>
+                        <p class="text-xs text-slate-500">{{ $user->fasilitator->biodata?->institutionLabel() ?? 'Fasilitator perkaderan' }}</p>
+                        <p class="mt-2 text-xs text-slate-600">Keahlian: <span class="text-slate-800">{{ $user->fasilitator->biodata?->expertise ?? '-' }}</span></p>
+                        <p class="text-xs text-slate-600">WhatsApp: <span class="text-slate-800">{{ $user->fasilitator->biodata?->phone_number ?? '-' }}</span></p>
                     </div>
                 </div>
             @else
-                <div class="text-center py-4">
-                    <p class="text-xs text-gray-500 mb-3">Anda belum memilih fasilitator pendamping.</p>
-                    <a href="{{ route('kader.fasilitator.create') }}" class="text-xs text-white bg-brand px-4 py-2 rounded-lg font-medium">Pilih Fasilitator</a>
+                <div class="mt-4 rounded-md border border-dashed border-slate-300 bg-slate-50 p-4">
+                    <p class="text-sm text-slate-600">Anda belum memilih fasilitator pendamping.</p>
+                    <a href="{{ route('kader.fasilitator.create') }}" class="mt-3 inline-flex items-center rounded-md bg-brand px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-brand-dark">
+                        Pilih fasilitator
+                    </a>
                 </div>
             @endif
         </div>
 
-        <!-- Mentor Card -->
-        <div class="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm">
-            <div class="flex items-center justify-between mb-4">
-                <span class="text-xs font-bold uppercase tracking-wider text-amber-700 bg-amber-50 px-2.5 py-1 rounded-md">
-                    Mentor Senior Bidang
-                </span>
+        <!-- Mentor -->
+        <div class="rounded-lg border border-slate-200 bg-white p-6">
+            <div class="flex items-start justify-between gap-4">
+                <h2 class="text-sm font-semibold text-slate-900">Mentor senior</h2>
                 @if($user->mentor)
-                    <span class="text-xs text-emerald-700 font-semibold">● Mentor Ditetapkan</span>
+                    <span class="inline-flex shrink-0 items-center gap-1.5 text-xs font-medium text-emerald-700">
+                        <span class="size-1.5 rounded-full bg-emerald-600"></span>Ditetapkan
+                    </span>
                 @elseif($canSelectMentor)
-                    <span class="text-xs text-amber-700 font-semibold animate-pulse">🔓 Terbuka! Silakan Pilih</span>
+                    <span class="shrink-0 text-xs font-medium text-brand">Terbuka</span>
                 @else
-                    <span class="text-xs text-gray-400 font-medium">🔒 Terkunci (Minimal 3 Tugas)</span>
+                    <span class="shrink-0 text-xs font-medium text-slate-400">Terkunci</span>
                 @endif
             </div>
 
             @if($user->mentor)
-                <div class="flex items-start space-x-4">
-                    <div class="w-12 h-12 rounded-full bg-amber-100 text-amber-800 font-bold flex items-center justify-center text-lg shrink-0">
+                <div class="mt-4 flex items-start gap-3">
+                    <span class="flex size-10 shrink-0 items-center justify-center rounded-full bg-brand-soft text-sm font-semibold text-brand">
                         {{ strtoupper(substr($user->mentor->name, 0, 2)) }}
-                    </div>
-                    <div>
-                        <h3 class="font-bold text-gray-900 text-base">{{ $user->mentor->name }}</h3>
-                        <p class="text-xs text-gray-500">{{ $user->mentor->biodata?->institutionLabel() ?? 'Alumni / Tokoh' }}</p>
-                        <p class="text-xs text-gray-700 mt-1">Keahlian: <span class="font-medium">{{ $user->mentor->biodata?->expertise ?? '-' }}</span></p>
-                        <p class="text-xs text-gray-700">Kontak: <span class="font-semibold text-amber-700">{{ $user->mentor->biodata?->phone_number ?? '-' }}</span></p>
+                    </span>
+                    <div class="min-w-0">
+                        <p class="font-medium text-slate-900">{{ $user->mentor->name }}</p>
+                        <p class="text-xs text-slate-500">{{ $user->mentor->biodata?->institutionLabel() ?? 'Alumni / tokoh persyarikatan' }}</p>
+                        <p class="mt-2 text-xs text-slate-600">Keahlian: <span class="text-slate-800">{{ $user->mentor->biodata?->expertise ?? '-' }}</span></p>
+                        <p class="text-xs text-slate-600">Kontak: <span class="text-slate-800">{{ $user->mentor->biodata?->phone_number ?? '-' }}</span></p>
                     </div>
                 </div>
             @elseif($canSelectMentor)
-                <div class="bg-amber-50 border border-amber-200 rounded-xl p-4 text-center">
-                    <p class="text-xs text-amber-900 font-medium mb-3">
-                        🎉 Selamat! Anda telah menyelesaikan {{ $completedCount }}/3 tugas. Akses pemilihan Mentor senior sudah terbuka!
+                <div class="mt-4 rounded-md border border-amber-200 bg-amber-50 p-4">
+                    <p class="text-sm leading-relaxed text-amber-900">
+                        Anda telah menyelesaikan {{ $completedCount }} dari 3 tugas. Pemilihan mentor senior sudah terbuka.
                     </p>
-                    <a href="{{ route('kader.mentor.create') }}"
-                        class="inline-flex items-center px-4 py-2 bg-amber-500 hover:bg-amber-600 text-slate-900 text-white text-xs font-semibold rounded-lg shadow-sm transition">
-                        Pilih Mentor Sekarang &rarr;
+                    <a href="{{ route('kader.mentor.create') }}" class="mt-3 inline-flex items-center rounded-md bg-brand px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-brand-dark">
+                        Pilih mentor
                     </a>
                 </div>
             @else
-                <div class="bg-gray-50 border border-gray-200 rounded-xl p-4 text-center">
-                    <div class="text-xl mb-1">🔒</div>
-                    <p class="text-xs text-gray-600 font-medium">
-                        Pemilihan Mentor terbuka setelah Anda menyelesaikan minimal 3 tugas di bawah.
+                <div class="mt-4 rounded-md border border-dashed border-slate-300 bg-slate-50 p-4">
+                    <p class="text-sm leading-relaxed text-slate-600">
+                        Pemilihan mentor terbuka setelah Anda menyelesaikan minimal tiga tugas.
                     </p>
-                    <p class="text-xs text-gray-400 mt-1">
-                        Progres saat ini: <strong>{{ $completedCount }} dari 3</strong> tugas selesai.
-                    </p>
+                    <div class="mt-3 flex items-center gap-3">
+                        <div class="h-1 flex-1 overflow-hidden rounded-full bg-slate-200">
+                            <div class="h-full rounded-full bg-brand" style="width: {{ min(100, ($completedCount / 3) * 100) }}%"></div>
+                        </div>
+                        <span class="text-xs font-medium text-slate-500">{{ $completedCount }}/3</span>
+                    </div>
                 </div>
             @endif
         </div>
     </div>
 
-    <!-- Evaluasi & Catatan dari Fasilitator -->
-    <div class="bg-white p-6 sm:p-8 rounded-2xl border border-gray-200 shadow-sm">
-        <div class="flex items-center justify-between mb-4">
+    <!-- Evaluasi fasilitator -->
+    <div class="rounded-lg border border-slate-200 bg-white">
+        <div class="flex items-center justify-between gap-4 border-b border-slate-200 px-6 py-4">
             <div>
-                <h3 class="text-base font-bold text-gray-900">Catatan & Evaluasi dari Fasilitator</h3>
-                <p class="text-xs text-gray-500 mt-0.5">Umpan balik dan arahan bimbingan dari {{ $user->fasilitator?->name ?? 'Fasilitator Pendamping' }}</p>
+                <h2 class="text-sm font-semibold text-slate-900">Catatan evaluasi</h2>
+                <p class="mt-0.5 text-xs text-slate-500">Umpan balik dari {{ $user->fasilitator?->name ?? 'fasilitator pendamping' }}</p>
             </div>
-            <span class="text-xs font-semibold text-brand bg-brand-soft px-2.5 py-1 rounded-md">
-                {{ $user->evaluationsReceived->count() }} Catatan
-            </span>
+            <span class="text-xs text-slate-500">{{ $user->evaluationsReceived->count() }} catatan</span>
         </div>
 
         @if($user->evaluationsReceived->isEmpty())
-            <p class="text-xs text-gray-400 italic bg-gray-50 p-4 rounded-xl border border-dashed border-gray-200 text-center">
-                Belum ada catatan evaluasi baru dari fasilitator pendamping Anda.
+            <p class="px-6 py-8 text-center text-sm text-slate-500">
+                Belum ada catatan evaluasi dari fasilitator.
             </p>
         @else
-            <div class="space-y-3">
+            <ul class="divide-y divide-slate-100">
                 @foreach($user->evaluationsReceived as $eval)
-                    <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 text-xs">
-                        <div class="flex justify-between items-center mb-1">
-                            <span class="font-bold text-slate-900 text-xs">{{ $eval->category }}</span>
-                            <span class="text-[11px] text-gray-500">{{ $eval->created_at->format('d M Y H:i') }}</span>
+                    <li class="px-6 py-4">
+                        <div class="flex items-center justify-between gap-3">
+                            <span class="text-xs font-semibold text-slate-900">{{ $eval->category }}</span>
+                            <span class="text-xs text-slate-400">{{ $eval->created_at->format('d M Y, H:i') }}</span>
                         </div>
-                        <p class="text-gray-800 leading-relaxed mt-1">{{ $eval->note }}</p>
-                    </div>
+                        <p class="mt-1.5 text-sm leading-relaxed text-slate-700">{{ $eval->note }}</p>
+                    </li>
                 @endforeach
-            </div>
+            </ul>
         @endif
     </div>
 
-    <!-- Biodata Information Card -->
+    <!-- Biodata -->
     @if($user->biodata)
-        <div class="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm">
-            <h3 class="text-base font-bold text-gray-900 mb-4">Ringkasan Biodata Diri</h3>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 text-xs">
+        <div class="rounded-lg border border-slate-200 bg-white">
+            <h2 class="border-b border-slate-200 px-6 py-4 text-sm font-semibold text-slate-900">Biodata</h2>
+            <dl class="grid grid-cols-1 gap-x-6 gap-y-4 px-6 py-5 text-sm sm:grid-cols-2 lg:grid-cols-4">
                 <div>
-                    <span class="text-gray-400 block">Nama Lengkap</span>
-                    <span class="font-semibold text-gray-800">{{ $user->biodata->full_name }}</span>
+                    <dt class="text-xs text-slate-500">Nama lengkap</dt>
+                    <dd class="mt-0.5 font-medium text-slate-900">{{ $user->biodata->full_name }}</dd>
                 </div>
                 <div>
-                    <span class="text-gray-400 block">WhatsApp / HP</span>
-                    <span class="font-semibold text-gray-800">{{ $user->biodata->phone_number }}</span>
+                    <dt class="text-xs text-slate-500">WhatsApp / HP</dt>
+                    <dd class="mt-0.5 font-medium text-slate-900">{{ $user->biodata->phone_number }}</dd>
                 </div>
                 <div>
-                    <span class="text-gray-400 block">Tanggal Lahir</span>
-                    <span class="font-semibold text-gray-800">{{ $user->biodata->date_of_birth->format('d M Y') }}</span>
+                    <dt class="text-xs text-slate-500">Tanggal lahir</dt>
+                    <dd class="mt-0.5 font-medium text-slate-900">{{ $user->biodata->date_of_birth->format('d M Y') }}</dd>
                 </div>
                 <div>
-                    <span class="text-gray-400 block">Jenis Kelamin</span>
-                    <span class="font-semibold text-gray-800">{{ $user->biodata->gender === 'male' ? 'Laki-laki' : 'Perempuan' }}</span>
+                    <dt class="text-xs text-slate-500">Jenis kelamin</dt>
+                    <dd class="mt-0.5 font-medium text-slate-900">{{ $user->biodata->gender === 'male' ? 'Laki-laki' : 'Perempuan' }}</dd>
                 </div>
                 <div class="sm:col-span-2">
-                    <span class="text-gray-400 block">Alamat Domisili</span>
-                    <span class="font-semibold text-gray-800">{{ $user->biodata->address }}</span>
+                    <dt class="text-xs text-slate-500">Alamat domisili</dt>
+                    <dd class="mt-0.5 font-medium text-slate-900">{{ $user->biodata->address }}</dd>
                 </div>
                 <div class="sm:col-span-2">
-                    <span class="text-gray-400 block">Komisariat</span>
-                    <span class="font-semibold text-gray-800">{{ $user->biodata->institutionLabel() ?? '-' }}</span>
+                    <dt class="text-xs text-slate-500">Komisariat</dt>
+                    <dd class="mt-0.5 font-medium text-slate-900">{{ $user->biodata->institutionLabel() ?? '-' }}</dd>
                 </div>
                 @if($user->interestEnums() !== [])
-                    <div class="sm:col-span-2 md:col-span-4">
-                        <span class="text-gray-400 block">Minat</span>
-                        <div class="mt-1 flex flex-wrap gap-1.5">
+                    <div class="sm:col-span-2 lg:col-span-4">
+                        <dt class="text-xs text-slate-500">Minat</dt>
+                        <dd class="mt-1 flex flex-wrap gap-1.5">
                             @foreach($user->interestEnums() as $interest)
-                                <span class="inline-flex rounded-full bg-gray-100 px-2 py-0.5 text-[11px] font-semibold text-gray-700">
-                                    {{ $interest->label() }}
-                                </span>
+                                <span class="rounded bg-slate-100 px-2 py-0.5 text-xs text-slate-600">{{ $interest->label() }}</span>
                             @endforeach
-                        </div>
+                        </dd>
                     </div>
                 @endif
-            </div>
+            </dl>
         </div>
     @endif
 

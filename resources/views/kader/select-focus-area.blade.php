@@ -1,57 +1,49 @@
 @extends('layouts.app', ['title' => 'Pilih Fokus Bidang Kader - IMM UINSA'])
 
 @section('content')
-<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+<div class="mx-auto max-w-4xl px-4 py-8 sm:px-6 lg:px-8">
     <x-onboarding-header
-        title="Pilih 1 dari 4 Fokus Bidang"
-        badge="Tahap Pergerakan Kader"
+        title="Pilih Fokus Bidang"
+        badge="Tahap pergerakan kader"
         :current-step="2">
         <x-slot:description>
-            Halo <strong>{{ $user->name }}</strong>, tentukan rumpun pergerakan yang ingin Anda tekuni. Pilihan ini akan menentukan rekomendasi fasilitator pendamping dan materi penugasan Anda.
+            Halo <strong>{{ $user->name }}</strong>, tentukan rumpun pergerakan yang ingin Anda tekuni. Pilihan ini menentukan rekomendasi fasilitator pendamping dan materi penugasan.
         </x-slot:description>
     </x-onboarding-header>
 
     <form action="{{ route('kader.focus-area.store') }}" method="POST">
         @csrf
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+        <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
             @foreach($focusAreas as $area)
-                <label class="relative flex flex-col justify-between p-6 bg-white rounded-2xl border-2 cursor-pointer transition hover:border-red-600 hover:shadow-md {{ old('focus_area', $user->focus_area?->value) === $area->value ? 'border-red-600 ring-2 ring-red-600' : 'border-gray-200' }}">
-                    <div class="flex items-start justify-between">
+                @php $isSelected = old('focus_area', $user->focus_area?->value) === $area->value; @endphp
+                <label class="relative flex cursor-pointer flex-col justify-between rounded-lg border bg-white p-5 transition {{ $isSelected ? 'border-brand ring-1 ring-brand' : 'border-slate-200 hover:border-slate-300' }}">
+                    <div class="flex items-start justify-between gap-4">
                         <div>
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold border {{ $area->badgeClass() }}">
-                                {{ $area->label() }}
-                            </span>
-                            <h3 class="text-lg font-bold text-gray-900 mt-3">{{ $area->label() }}</h3>
-                            <p class="text-xs text-gray-600 mt-2 leading-relaxed">
-                                {{ $area->description() }}
-                            </p>
+                            <h2 class="text-base font-semibold text-slate-900">{{ $area->label() }}</h2>
+                            <p class="mt-1.5 text-sm leading-relaxed text-slate-600">{{ $area->description() }}</p>
                         </div>
                         <input type="radio" name="focus_area" value="{{ $area->value }}" required
-                            {{ old('focus_area', $user->focus_area?->value) === $area->value ? 'checked' : '' }}
-                            class="h-5 w-5 text-brand border-gray-300 focus:ring-brand/30">
+                            {{ $isSelected ? 'checked' : '' }}
+                            class="mt-0.5 size-4 shrink-0 border-slate-300 text-brand focus:ring-brand/30">
                     </div>
 
-                    <div class="mt-6 pt-4 border-t border-gray-100 flex items-center justify-between text-xs text-gray-500">
-                        <span>3 Modul Tugas Wajib</span>
-                        <span class="font-semibold text-brand">Pilih Bidang &rarr;</span>
-                    </div>
+                    <p class="mt-4 border-t border-slate-100 pt-3 text-xs text-slate-500">Tiga modul tugas wajib</p>
                 </label>
             @endforeach
         </div>
 
         @error('focus_area')
-            <p class="text-red-600 text-sm text-center mb-4">{{ $message }}</p>
+            <p class="mt-4 text-sm text-red-600">{{ $message }}</p>
         @enderror
 
-        <div class="flex flex-wrap items-center justify-center gap-3">
+        <div class="mt-8 flex flex-wrap items-center justify-between gap-3 border-t border-slate-200 pt-6">
             <x-back-button :fallback="route('biodata.create')" />
             <button type="submit"
-                class="px-8 py-3 bg-brand text-white font-semibold text-sm rounded-xl shadow-md hover:bg-red-800 focus:ring-2 focus:ring-offset-2 focus:ring-brand/40 transition">
-                Simpan Pilihan & Lihat Rekomendasi Fasilitator &rarr;
+                class="rounded-md bg-brand px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-dark focus:outline-none focus:ring-2 focus:ring-brand/40 focus:ring-offset-2">
+                Lanjut pilih fasilitator
             </button>
         </div>
     </form>
 </div>
 @endsection
-

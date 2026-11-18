@@ -9,6 +9,7 @@ use Database\Factories\UserFactory;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -147,6 +148,18 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
+     * Get completed task records that belong to the user's current focus area.
+     *
+     * @return Collection<int, KaderTask>
+     */
+    public function completedTasksForCurrentFocus(): Collection
+    {
+        return $this->completedTasks
+            ->filter(fn (KaderTask $completedTask) => $completedTask->task?->focus_area === $this->focus_area)
+            ->values();
+    }
+
+    /**
      * Check if the user has completed a specific task.
      */
     public function hasCompletedTask(int $taskId): bool
@@ -159,7 +172,9 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function completedTasksCount(): int
     {
-        return $this->completedTasks()->count();
+        return $this->completedTasks()
+            ->whereHas('task', fn ($query) => $query->where('focus_area', $this->focus_area))
+            ->count();
     }
 
     /**
