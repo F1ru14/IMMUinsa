@@ -155,7 +155,7 @@ class User extends Authenticatable implements MustVerifyEmail
     public function completedTasksForCurrentFocus(): Collection
     {
         return $this->completedTasks
-            ->filter(fn (KaderTask $completedTask) => $completedTask->task?->focus_area === $this->focus_area)
+            ->filter(fn (KaderTask $completedTask) => $completedTask->task->focus_area === $this->focus_area)
             ->values();
     }
 
